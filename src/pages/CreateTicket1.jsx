@@ -12,8 +12,7 @@ import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IoArrowBack } from "react-icons/io5";
-import { Link } from "react-router-dom/cjs/react-router-dom";
-
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 function CreateTicket() {
   const [formData, setFormData] = useState({
     subject: "",

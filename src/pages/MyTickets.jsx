@@ -3,7 +3,7 @@ import Ticket from "@/components/Ticket";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { CiCirclePlus } from "react-icons/ci";
-import { Link } from "react-router-dom/cjs/react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function MyTickets() {
   // State to store the tickets
