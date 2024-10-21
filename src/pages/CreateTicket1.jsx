@@ -11,7 +11,8 @@ import {
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { IoArrowBack } from "react-icons/io5";
+
+import { IoArrowBackCircle } from "react-icons/io5";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 function CreateTicket() {
   const [formData, setFormData] = useState({
@@ -101,11 +102,13 @@ function CreateTicket() {
       <div className="bg-accent-200 shadow-lg rounded-lg p-8 w-full max-w-2xl">
         <div className="flex flex-row justify-between">
           <h2 className="text-xl font-semibold mb-4 text-right">ایجاد تیکت</h2>
-          <Button>
-            <Link to="/profile">
-              <IoArrowBack />
-            </Link>
-          </Button>
+          <div className="flex flex-col justify-start">
+            <Button size="sm" className="text-accent-400 text-4xl">
+              <Link to="/profile/tickets">
+                <IoArrowBackCircle />
+              </Link>
+            </Button>
+          </div>
         </div>
 
         <p className="text-sm max-w-sm font-semibold text-gray-500 mb-6 text-right">
