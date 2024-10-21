@@ -17,6 +17,13 @@ function App() {
   return (
     <Router>
       <div>
+        {showCompleteProfileModal && (
+          <CompleteProfileModal
+            showCompleteProfileModal={showCompleteProfileModal}
+            setShowCompleteProfileModal={setShowCompleteProfileModal}
+          />
+        )}
+
         <div className="container mx-auto px-auto">
           <Navbar showModal={showModal} setShowModal={setShowModal} />
           <Routes>
@@ -26,18 +33,8 @@ function App() {
                 <Home showModal={showModal} setShowModal={setShowModal} />
               }
             />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/CreateTicket" element={<CreateTicket />} />
-            <Route path="/profile/TicketChat" element={<TicketChat />} />
-            <Route
-              path="/completeProfile"
-              element={
-                <CompleteProfileModal
-                  showCompleteProfileModal={showCompleteProfileModal}
-                  setShowCompleteProfileModal={setShowCompleteProfileModal}
-                />
-              }
-            />
+            <Route path="/profile/*" element={<Profile />} />{" "}
+            {/* Allow nested paths under profile */}
           </Routes>
         </div>
         <Footer />

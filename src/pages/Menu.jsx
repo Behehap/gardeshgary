@@ -4,19 +4,17 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import { FaBell } from "react-icons/fa";
 import { HiTicket } from "react-icons/hi2";
 import { CiLogout } from "react-icons/ci";
-import EditProfile from "./EditProfile";
-import Notifications from "./Notifications";
-import MyTickets from "./MyTickets";
+import { Link, useLocation } from "react-router-dom";
 import CompleteProfileModal from "../components/CompleteProfileModal"; // Your modal
 
-function SidebarMenu({ activeMenu, setActiveMenu }) {
+function SidebarMenu() {
   const [isProfileComplete, setIsCompleteProfile] = useState(true);
   const [showCompleteProfileModal, setShowCompleteProfileModal] =
     useState(false);
-  const [userData, setUserData] = useState(null); // State to store user data
+  const [userData, setUserData] = useState(null);
+  const location = useLocation(); // To track current location
 
   useEffect(() => {
-    // Call API to check if the profile is complete when the menu loads
     checkProfileCompletion();
   }, []);
 
@@ -31,9 +29,8 @@ function SidebarMenu({ activeMenu, setActiveMenu }) {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData, "dd");
-        const userData = responseData.data; // Access the 'data' object from the response
-        setUserData(userData); // Store user data in state
+        const userData = responseData.data;
+        setUserData(userData);
         if (!userData.isCompleteProfile) {
           setIsCompleteProfile(false);
         }
@@ -45,45 +42,35 @@ function SidebarMenu({ activeMenu, setActiveMenu }) {
     }
   };
 
-  const handleMenuClick = (menu) => {
-    // If the profile is incomplete, show modal
-    if (false) {
-      // complete profile
-      //should be  (  !isProfileComplete   )  after debugging instead if false //
-      setShowCompleteProfileModal(true);
-    } else {
-      setActiveMenu(menu); // Set active menu if profile is complete
-    }
-  };
-
-  function MenuItem({ icon, label, isActive = false, onClick }) {
+  const MenuItem = ({ icon, label, to }) => {
+    const isActive = location.pathname === to; // Determine if the route is active
     return (
-      <div
-        onClick={onClick}
-        className={`flex items-center cursor-pointer ${
-          isActive ? "bg-accent-200" : "text-gray-600"
-        } justify-center md:justify-start rounded-lg p-2`}
-      >
-        <div className="flex justify-center items-center w-12 h-12 p-2">
-          {icon}
+      <Link to={to}>
+        <div
+          className={`flex items-center cursor-pointer ${
+            isActive ? "bg-accent-200" : "text-gray-600"
+          } justify-center md:justify-start rounded-lg p-2`}
+        >
+          <div className="flex justify-center items-center w-12 h-12 p-2">
+            {React.cloneElement(icon, {
+              className: `${
+                isActive ? "text-accent-600" : ""
+              } transition-all duration-300`,
+            })}
+          </div>
+          <span className="hidden md:inline-block ml-4">{label}</span>
         </div>
-        <span className="hidden md:inline-block ml-4">{label}</span>
-      </div>
+      </Link>
     );
-  }
+  };
 
   return (
     <div className="my-5">
-      {/* Profile Completion Modal */}
       <CompleteProfileModal
         showCompleteProfileModal={showCompleteProfileModal}
         setShowCompleteProfileModal={setShowCompleteProfileModal}
       />
-
-      {/* Top Navbar for mobile, Sidebar for desktop */}
-
       <div className="p-2 bg-white rounded-lg shadow-lg">
-        {/* Profile Section (Avatar only shown on desktop) */}
         <div className="hidden md:flex flex-col items-center mt-16">
           <Avatar className="mb-4">
             <AvatarImage
@@ -95,73 +82,29 @@ function SidebarMenu({ activeMenu, setActiveMenu }) {
               alt="Profile"
             />
           </Avatar>
-          {/* Conditionally render user name if userData is available */}
           {userData ? (
             <>
               <h3 className="text-lg font-medium text-gray-700">
                 {userData.name}
               </h3>
-
-              {/* <p className="text-sm text-gray-500">{userData.username}</p>
-                <p className="text-sm text-gray-500">{userData.phone}</p> */}
             </>
           ) : (
             <h3 className="text-lg font-medium text-gray-700">Loading...</h3>
           )}
         </div>
 
-        {/* Mobile/Tablet Menu (Flex row on small screens, vertical on desktop) */}
-
-        <div className="flex justify-around md:flex-col md:space-y-6 ">
-          {/* Decorative line */}
-
+        <div className="flex justify-around md:flex-col md:space-y-6">
           <MenuItem
-            icon={
-              <IoPersonCircleOutline
-                className={`${
-                  activeMenu === "profile" ? "text-accent-600" : ""
-                } transition-all duration-300 rounded-lg w-10 h-10`}
-              />
-            }
+            icon={<IoPersonCircleOutline />}
             label="ویرایش پروفایل"
-            onClick={() => handleMenuClick("profile")}
-            isActive={activeMenu === "profile"}
+            to="/profile"
           />
+          <MenuItem icon={<FaBell />} label="اعلان ها" to="notifications" />
+          <MenuItem icon={<HiTicket />} label="تیکت ها" to="tickets" />
           <MenuItem
-            icon={
-              <FaBell
-                className={`${
-                  activeMenu === "notifications" ? "text-secondary-500" : ""
-                } transition-all duration-300 rounded-lg w-7 h-7`}
-              />
-            }
-            label="اعلان ها"
-            onClick={() => handleMenuClick("notifications")}
-            isActive={activeMenu === "notifications"}
-          />
-          <MenuItem
-            icon={
-              <HiTicket
-                className={`${
-                  activeMenu === "tickets" ? "text-primary-700" : ""
-                } transition-all duration-300 rounded-lg w-10 h-10`}
-              />
-            }
-            label="تیکت ها"
-            onClick={() => handleMenuClick("tickets")}
-            isActive={activeMenu === "tickets"}
-          />
-          <MenuItem
-            icon={
-              <CiLogout
-                className={`${
-                  activeMenu === "logout" ? "text-red-500" : ""
-                } transition-all duration-300 rounded-lg w-10 h-10`}
-              />
-            }
+            icon={<CiLogout />}
             label="خروج از حساب کاربری"
-            onClick={() => handleMenuClick("logout")}
-            isActive={activeMenu === "logout"}
+            to="profile/logout" // Adjust this as necessary
           />
         </div>
       </div>
