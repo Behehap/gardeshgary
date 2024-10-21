@@ -97,7 +97,7 @@ function CreateTicket() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className=" flex justify-center items-center">
       <div className="bg-accent-200 shadow-lg rounded-lg p-8 w-full max-w-2xl">
         <div className="flex flex-row justify-between">
           <h2 className="text-xl font-semibold mb-4 text-right">ایجاد تیکت</h2>

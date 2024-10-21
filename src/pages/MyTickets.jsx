@@ -81,7 +81,7 @@ function MyTickets() {
       <div className="flex justify-end px-4 pt-4">
         <Button className="bg-secondary-400">
           <Link
-            to="/profile/createTicket"
+            to="/profile/tickets/create-ticket"
             className="flex items-center space-x-2 text-black"
           >
             <CiCirclePlus className="w-8 h-8 pl-2" /> تیکت جدید
