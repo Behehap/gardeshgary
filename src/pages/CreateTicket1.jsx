@@ -8,6 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -98,10 +100,19 @@ function CreateTicket() {
   };
 
   return (
-    <div className=" flex justify-center items-center">
-      <div className="bg-accent-200 shadow-lg rounded-lg p-8 w-full max-w-2xl">
+    <div className=" flex justify-center items-center w-full">
+      <div className="bg-accent-200 shadow-lg rounded-lg p-8 w-full max-w-2xl ">
         <div className="flex flex-row justify-between">
-          <h2 className="text-xl font-semibold mb-4 text-right">ایجاد تیکت</h2>
+          <div className="flex flex-col">
+            <h2 className="text-xl font-semibold mb-4 text-right">
+              ایجاد تیکت
+            </h2>
+            <p className="text-sm max-w-sm font-semibold text-black mb-6 text-right">
+              تیکت های ارسالی شما در اسرع وقت پاسخ داده خواهد شد، ساعت پاسخگویی
+              شنبه تا پنجشنبه از ساعت ۹ صبح الی ۹ شب خواهد بود.(به غیر از روزهای
+              تعطیل رسمی)
+            </p>
+          </div>
           <div className="flex flex-col justify-start">
             <Button size="sm" className="text-accent-400 text-4xl">
               <Link to="/profile/tickets">
@@ -110,15 +121,9 @@ function CreateTicket() {
             </Button>
           </div>
         </div>
-
-        <p className="text-sm max-w-sm font-semibold text-gray-500 mb-6 text-right">
-          تیکت های ارسالی شما در اسرع وقت پاسخ داده خواهد شد، ساعت پاسخگویی شنبه
-          تا پنجشنبه از ساعت ۹ صبح الی ۹ شب خواهد بود.(به غیر از روزهای تعطیل
-          رسمی)
-        </p>
-
+        <div className="border-t border-natural-gray2 w-full"></div>
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col justify-around md:flex-row gap-4">
+          <div className="flex flex-col justify-around md:flex-row gap-4 mt-6">
             {/* Ticket Title */}
             <div className="flex flex-col w-full">
               <label htmlFor="subject" className="text-right mb-1">
@@ -170,19 +175,19 @@ function CreateTicket() {
           </div>
 
           {/* Content */}
-          <div className="flex flex-col mt-4">
+          <div className="flex flex-col mt-24">
             <Label htmlFor="content" className="text-right mb-1">
               متن
             </Label>
-            <textarea
+            <Textarea
               id="content"
               name="content"
               rows="6"
-              className="border p-2 rounded-md text-right"
+              className="border p-2 rounded-md text-right min-h-64"
               placeholder="متن"
               value={formData.content}
               onChange={handleInputChange}
-            ></textarea>
+            ></Textarea>
             {errors.content && (
               <span className="text-red-500 text-sm text-right">
                 {errors.content}
@@ -199,13 +204,13 @@ function CreateTicket() {
                 className="hidden"
                 onChange={handleFileChange}
               />
-              <Button
+              {/* <Button
                 type="button"
                 className="bg-natural-gray3 text-black px-4 py-2 rounded-md cursor-pointer"
                 onClick={handleFileButtonClick}
               >
                 {file ? file.name : "انتخاب فایل"}
-              </Button>
+              </Button> */}
             </div>
 
             <Button
