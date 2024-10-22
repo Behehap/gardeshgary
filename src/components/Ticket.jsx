@@ -1,5 +1,6 @@
 import React from "react";
 import { FaEye } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 // Function to format the date in Persian (YY/MM/DD)
 const formatDateToPersian = (dateString) => {
@@ -11,7 +12,6 @@ const formatDateToPersian = (dateString) => {
   }).format(date);
 };
 
-// Function to translate status
 const translateStatus = (status) => {
   switch (status) {
     case "closed":
@@ -27,7 +27,7 @@ function Ticket({ ticketId, title, date, status }) {
   return (
     <div className="bg-accent-600 rounded-lg text-white w-full">
       <div className="w-full overflow-x-auto">
-        <div className="flex flex-row justify-around min-w-[700px] [&>div]:flex-shrink-0 px-5 py-2">
+        <div className="flex flex-row justify-around min-w-[700px] px-5 py-2">
           <div className="flex flex-col items-center py-2 gap-8 min-w-[120px]">
             <h2 className="text-sm font-bold">شماره تیکت</h2>
             <span>{ticketId}</span>
@@ -38,21 +38,20 @@ function Ticket({ ticketId, title, date, status }) {
           </div>
           <div className="flex flex-col items-center py-2 gap-8 min-w-[120px]">
             <h2 className="text-sm font-bold">تاریخ</h2>
-            <span>{formatDateToPersian(date)}</span> {/* Formatted Date */}
+            <span>{formatDateToPersian(date)}</span>
           </div>
           <div className="flex flex-col items-center py-2 gap-8 min-w-[120px]">
             <h2 className="text-sm font-bold">وضعیت</h2>
-            <span
-              className={status === "در انتظار پاسخ" ? "text-green-500" : ""}
-            >
-              {translateStatus(status)} {/* Translated Status */}
-            </span>
+            <span>{translateStatus(status)}</span>
           </div>
           <div className="flex flex-col items-center py-2 gap-8 min-w-[120px]">
             <h2 className="text-sm font-bold">مشاهده</h2>
-            <span>
-              <FaEye className="w-5 h-5" />
-            </span>
+            <button>
+              {/* Update the Link to pass the ticketId dynamically */}
+              <Link to={`/profile/tickets/ticket-chat/${ticketId}`}>
+                <FaEye className="w-5 h-5" />
+              </Link>
+            </button>
           </div>
         </div>
       </div>

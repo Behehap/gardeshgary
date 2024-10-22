@@ -14,11 +14,12 @@ function Profile() {
       <div className="flex w-full justify-center items-center flex-grow pt-5">
         <Routes>
           <Route path="notifications" element={<Notifications />} />
+          <Route path="tickets/create-ticket" element={<CreateTicket />} />
+          {/* Use only the dynamic route for ticket chat */}
           <Route
-            path="tickets/create-ticket"
-            element={<CreateTicket />}
-          ></Route>
-          <Route path="tickets/ticket-chat" element={<TicketChat />}></Route>
+            path="tickets/ticket-chat/:ticketId"
+            element={<TicketChat />}
+          />
           <Route path="tickets" element={<MyTickets />} />
           <Route path="/" element={<EditProfile />} /> {/* Default route */}
         </Routes>

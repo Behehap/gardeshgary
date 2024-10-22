@@ -3,7 +3,7 @@ const ChatMessage = ({ message, isSupport }) => (
   <div className={`flex ${isSupport ? "justify-end" : "justify-start"} mb-4`}>
     <div
       className={`rounded-lg p-4 ${
-        isSupport ? "bg-gray-300 text-gray-900" : "bg-blue-500 text-white"
+        isSupport ? "bg-accent-700 text-white" : "bg-accent-500 text-white"
       } max-w-lg`}
     >
       <p>{message.text}</p>
