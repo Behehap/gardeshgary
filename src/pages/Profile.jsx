@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import EditProfile from "./EditProfile";
 import Notifications from "./Notifications";
 import MyTickets from "./MyTickets";
-import CreateTicket from "./CreateTicket1";
+import CreateTicket from "./CreateTicket";
 import TicketChat from "./TicketChat";
 import Menu from "./Menu";
 

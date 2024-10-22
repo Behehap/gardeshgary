@@ -9,7 +9,7 @@ import { CiLogout } from "react-icons/ci";
 import EditProfile from "../EditProfile"; // Import your components
 import Notifications from "../Notifications";
 import TicketChat from "../TicketChat";
-import CreateTicket from "../CreateTicket1";
+import CreateTicket from "../CreateTicket";
 import MyTickets from "../MyTickets";
 
 function SidebarMenu() {
