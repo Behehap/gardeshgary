@@ -5,6 +5,7 @@ import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
 import Footer from "./components/Footer1.jsx";
 import Navbar from "./components/Navbar.jsx";
+import TravelExprience from "./pages/TravelExperience.jsx";
 
 import CompleteProfileModal from "@/components/CompleteProfileModal";
 
@@ -34,6 +35,7 @@ function App() {
             />
             <Route path="/profile/*" element={<Profile />} />{" "}
             {/* Allow nested paths under profile */}
+            <Route path="/article" element={<TravelExprience />} />
           </Routes>
         </div>
         <Footer />

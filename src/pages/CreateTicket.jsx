@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { IoArrowBackCircle } from "react-icons/io5";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 function CreateTicket() {
   const [formData, setFormData] = useState({
     subject: "",
