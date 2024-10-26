@@ -5,14 +5,14 @@ import { FaBell } from "react-icons/fa";
 import { HiTicket } from "react-icons/hi2";
 import { CiLogout } from "react-icons/ci";
 import { Link, useLocation } from "react-router-dom";
-import CompleteProfileModal from "../components/CompleteProfileModal"; // Your modal
+import CompleteProfileModal from "../components/CompleteProfileModal";
 
 function SidebarMenu() {
   const [isProfileComplete, setIsCompleteProfile] = useState(true);
   const [showCompleteProfileModal, setShowCompleteProfileModal] =
     useState(false);
   const [userData, setUserData] = useState(null);
-  const location = useLocation(); // To track current location
+  const location = useLocation();
 
   useEffect(() => {
     checkProfileCompletion();
@@ -42,35 +42,40 @@ function SidebarMenu() {
     }
   };
 
-  const MenuItem = ({ icon, label, to }) => {
-    const isActive = location.pathname === to; // Determine if the route is active
+  // Modified MenuItem to accept an activeColor prop
+  const MenuItem = ({ icon, label, to, activeColor }) => {
+    const isActive = location.pathname === to;
     return (
       <Link to={to}>
         <div
           className={`flex items-center cursor-pointer ${
-            isActive ? "bg-accent-200" : "text-gray-600"
+            isActive
+              ? `${activeColor} bg-opacity-20 bg-accent-200 `
+              : "text-gray-600"
           } justify-center md:justify-start rounded-lg p-2`}
         >
-          <div className="flex justify-center items-center w-12 h-12 p-2">
+          <div className="flex justify-center items-center  p-2">
             {React.cloneElement(icon, {
               className: `${
-                isActive ? "text-accent-600" : ""
-              } transition-all duration-300`,
+                isActive ? activeColor : ""
+              } transition-all duration-300 w-6 h-6`,
             })}
           </div>
-          <span className="hidden md:inline-block ml-4">{label}</span>
+          <span className="hidden md:inline-block ml-4  text-nowrap">
+            {label}
+          </span>
         </div>
       </Link>
     );
   };
 
   return (
-    <div className="my-5">
+    <div className="ml-5 my-5 ">
       <CompleteProfileModal
         showCompleteProfileModal={showCompleteProfileModal}
         setShowCompleteProfileModal={setShowCompleteProfileModal}
       />
-      <div className="p-2 bg-white rounded-lg shadow-lg">
+      <div className="p-2 bg-white rounded-lg shadow-lg ">
         <div className="hidden md:flex flex-col items-center mt-16">
           <Avatar className="mb-4">
             <AvatarImage
@@ -98,13 +103,25 @@ function SidebarMenu() {
             icon={<IoPersonCircleOutline />}
             label="ویرایش پروفایل"
             to="/profile"
+            activeColor="text-accent-600"
           />
-          <MenuItem icon={<FaBell />} label="اعلان ها" to="notifications" />
-          <MenuItem icon={<HiTicket />} label="تیکت ها" to="tickets" />
+          <MenuItem
+            icon={<FaBell />}
+            label="اعلان ها"
+            to="/profile/notifications"
+            activeColor="text-secondary-500"
+          />
+          <MenuItem
+            icon={<HiTicket />}
+            label="تیکت ها"
+            to="/profile/tickets"
+            activeColor="text-primary-700"
+          />
           <MenuItem
             icon={<CiLogout />}
             label="خروج از حساب کاربری"
-            to="profile/logout" // Adjust this as necessary
+            to="/profile/logout"
+            activeColor="text-state-error-red2"
           />
         </div>
       </div>

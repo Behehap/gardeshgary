@@ -9,7 +9,7 @@ import Menu from "./Menu";
 
 function Profile() {
   return (
-    <div className="flex rounded-lg flex-col p-5 bg-primary-500 md:flex-row md:m-5 md:bg-white">
+    <div className="flex rounded-lg flex-col p-5 bg-primary-500 md:flex-row  md:bg-white">
       <Menu /> {/* Always show the menu */}
       <div className="flex w-full justify-center items-center flex-grow pt-5">
         <Routes>
