@@ -82,17 +82,14 @@ function EditProfile() {
     };
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/user/profile/edit",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch("http://127.0.0.1:8000/api/user/", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(payload),
+      });
 
       if (response.ok) {
         alert("پروفایل با موفقیت بروزرسانی شد");

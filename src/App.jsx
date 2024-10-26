@@ -9,23 +9,12 @@ import TravelExprience from "./pages/TravelExperience.jsx";
 import PublishArticle from "./pages/PublishingArticle.jsx";
 import ArticleTest from "./pages/ArticleTest.jsx";
 
-import CompleteProfileModal from "@/components/CompleteProfileModal";
-
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const [showCompleteProfileModal, setShowCompleteProfileModal] =
-    useState(true);
 
   return (
     <Router>
       <div>
-        {showCompleteProfileModal && (
-          <CompleteProfileModal
-            showCompleteProfileModal={showCompleteProfileModal}
-            setShowCompleteProfileModal={setShowCompleteProfileModal}
-          />
-        )}
-
         <div className="container mx-auto px-auto">
           <Navbar showModal={showModal} setShowModal={setShowModal} />
           <Routes>
