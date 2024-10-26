@@ -4,78 +4,60 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import { FaBell } from "react-icons/fa";
 import { HiTicket } from "react-icons/hi2";
 import { CiLogout } from "react-icons/ci";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import CompleteProfileModal from "../components/CompleteProfileModal";
 
-function SidebarMenu() {
-  const [isProfileComplete, setIsCompleteProfile] = useState(true);
-  const [showCompleteProfileModal, setShowCompleteProfileModal] =
-    useState(false);
+function SidebarMenu({
+  showCompleteProfileModal,
+  setShowCompleteProfileModal,
+  checkProfileCompletion,
+}) {
   const [userData, setUserData] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    checkProfileCompletion();
-  }, []);
-
-  const checkProfileCompletion = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/user", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-        const userData = responseData.data;
-        setUserData(userData);
-        if (!userData.isCompleteProfile) {
-          setIsCompleteProfile(false);
-        }
-      } else {
-        console.error("Error checking profile status.");
-      }
-    } catch (error) {
-      console.error("Failed to fetch profile completion status.", error);
+  const handleMenuItemClick = async (to) => {
+    await checkProfileCompletion();
+    if (showCompleteProfileModal) {
+      setShowCompleteProfileModal(true); // Show modal if profile is incomplete
+    } else {
+      navigate(to); // Navigate if profile is complete
     }
   };
 
-  // Modified MenuItem to accept an activeColor prop
   const MenuItem = ({ icon, label, to, activeColor }) => {
     const isActive = location.pathname === to;
+
     return (
-      <Link to={to}>
-        <div
-          className={`flex items-center cursor-pointer ${
-            isActive
-              ? `${activeColor} bg-opacity-20 bg-accent-200 `
-              : "text-gray-600"
-          } justify-center md:justify-start rounded-lg p-2`}
-        >
-          <div className="flex justify-center items-center  p-2">
-            {React.cloneElement(icon, {
-              className: `${
-                isActive ? activeColor : ""
-              } transition-all duration-300 w-6 h-6`,
-            })}
-          </div>
-          <span className="hidden md:inline-block ml-4  text-nowrap">
-            {label}
-          </span>
+      <div
+        onClick={() => handleMenuItemClick(to)}
+        className={`flex items-center cursor-pointer ${
+          isActive
+            ? `${activeColor} bg-opacity-20 bg-accent-200 `
+            : "text-gray-600"
+        } justify-center md:justify-start rounded-lg p-2`}
+      >
+        <div className="flex justify-center items-center p-2">
+          {React.cloneElement(icon, {
+            className: `${
+              isActive ? activeColor : ""
+            } transition-all duration-300 w-6 h-6`,
+          })}
         </div>
-      </Link>
+        <span className="hidden md:inline-block ml-4 text-nowrap">{label}</span>
+      </div>
     );
   };
 
   return (
     <div className="ml-5 my-5 ">
-      <CompleteProfileModal
-        showCompleteProfileModal={showCompleteProfileModal}
-        setShowCompleteProfileModal={setShowCompleteProfileModal}
-      />
-      <div className="p-2 bg-white rounded-lg shadow-lg ">
+      {showCompleteProfileModal && (
+        <CompleteProfileModal
+          showCompleteProfileModal={showCompleteProfileModal}
+          setShowCompleteProfileModal={setShowCompleteProfileModal}
+        />
+      )}
+      <div className="p-2 bg-white rounded-lg shadow-lg">
         <div className="hidden md:flex flex-col items-center mt-16">
           <Avatar className="mb-4">
             <AvatarImage
@@ -87,17 +69,10 @@ function SidebarMenu() {
               alt="Profile"
             />
           </Avatar>
-          {userData ? (
-            <>
-              <h3 className="text-lg font-medium text-gray-700">
-                {userData.name}
-              </h3>
-            </>
-          ) : (
-            <h3 className="text-lg font-medium text-gray-700">Loading...</h3>
-          )}
+          <h3 className="text-lg font-medium text-gray-700">
+            {userData ? userData.name : "Loading..."}
+          </h3>
         </div>
-
         <div className="flex justify-around md:flex-col md:space-y-6">
           <MenuItem
             icon={<IoPersonCircleOutline />}
