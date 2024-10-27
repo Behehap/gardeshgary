@@ -25,7 +25,7 @@ class MyUploadAdapter {
             .then((response) => response.json())
             .then((res) => {
               resolve({
-                default: res.url, // backend should return the URL to the uploaded image
+                default: res.url,
               });
             })
             .catch((err) => reject(err));
@@ -33,12 +33,9 @@ class MyUploadAdapter {
     );
   }
 
-  abort() {
-    // Handle aborting file upload
-  }
+  abort() {}
 }
 
-// Create adapter plugin for CKEditor
 function MyCustomUploadAdapterPlugin(editor) {
   editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
     return new MyUploadAdapter(loader);
@@ -48,65 +45,63 @@ function MyCustomUploadAdapterPlugin(editor) {
 function ArticleEditor() {
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
     content: "",
-    tags: "",
-    category: "",
+    image: null,
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // Handle input fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Handle CKEditor content change
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
     setFormData({ ...formData, content: data });
   };
 
-  // Function to handle article submission
+  const handleImageChange = (e) => {
+    setFormData({ ...formData, image: e.target.files[0] });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     let validationErrors = {};
     if (!formData.title) validationErrors.title = "عنوان ضروری است.";
-    if (!formData.description)
-      validationErrors.description = "توضیحات ضروری است.";
     if (!formData.content) validationErrors.content = "محتوا ضروری است.";
-    if (!formData.tags) validationErrors.tags = "برچسب‌ها ضروری است.";
-    if (!formData.category) validationErrors.category = "دسته‌بندی ضروری است.";
+    if (!formData.image) validationErrors.image = "تصویر ضروری است.";
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       const formDataToSend = new FormData();
       formDataToSend.append("title", formData.title);
-      formDataToSend.append("description", formData.description);
-      formDataToSend.append("content", formData.content);
-      formDataToSend.append("tags", formData.tags);
-      formDataToSend.append("category", formData.category);
+
+      // Create a Blob from the HTML content for the content.html file
+      // const htmlBlob = new Blob([formData.content], { type: "text/html" });
+      formDataToSend.append("content", formData.content); // Append Blob as a file with filename
+
+      formDataToSend.append("img", formData.image);
 
       try {
         setLoading(true);
-
-        const response = await fetch("http://127.0.0.1:8000/api/articles", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formDataToSend,
-        });
+        console.log(formData);
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/user/articles",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: formDataToSend,
+          }
+        );
 
         if (response.ok) {
           alert("مقاله با موفقیت ارسال شد");
-          navigate("/profile/articles");
+          // Change this to your desired route
         } else {
           const errorData = await response.json();
           alert("خطا در ارسال: " + errorData.message);
@@ -126,7 +121,6 @@ function ArticleEditor() {
 
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4">
-            {/* Title */}
             <div className="flex flex-col">
               <label htmlFor="title" className="text-right mb-1">
                 عنوان مقاله
@@ -147,28 +141,6 @@ function ArticleEditor() {
               )}
             </div>
 
-            {/* Description */}
-            <div className="flex flex-col">
-              <label htmlFor="description" className="text-right mb-1">
-                توضیحات مقاله
-              </label>
-              <Input
-                id="description"
-                name="description"
-                type="text"
-                className="border p-2 rounded-md text-right"
-                placeholder="توضیحات"
-                value={formData.description}
-                onChange={handleInputChange}
-              />
-              {errors.description && (
-                <span className="text-red-500 text-sm text-right">
-                  {errors.description}
-                </span>
-              )}
-            </div>
-
-            {/* Content (CKEditor) */}
             <div className="flex flex-col">
               <label htmlFor="content" className="text-right mb-1">
                 محتوا
@@ -188,49 +160,25 @@ function ArticleEditor() {
               )}
             </div>
 
-            {/* Tags */}
             <div className="flex flex-col">
-              <label htmlFor="tags" className="text-right mb-1">
-                برچسب‌ها
+              <label htmlFor="image" className="text-right mb-1">
+                تصویر مقاله
               </label>
-              <Input
-                id="tags"
-                name="tags"
-                type="text"
+              <input
+                id="image"
+                name="image"
+                type="file"
+                accept="image/jpeg,image/png,image/jpg"
                 className="border p-2 rounded-md text-right"
-                placeholder="برچسب‌ها"
-                value={formData.tags}
-                onChange={handleInputChange}
+                onChange={handleImageChange}
               />
-              {errors.tags && (
+              {errors.image && (
                 <span className="text-red-500 text-sm text-right">
-                  {errors.tags}
+                  {errors.image}
                 </span>
               )}
             </div>
 
-            {/* Category */}
-            <div className="flex flex-col">
-              <label htmlFor="category" className="text-right mb-1">
-                دسته‌بندی
-              </label>
-              <Input
-                id="category"
-                name="category"
-                type="text"
-                className="border p-2 rounded-md text-right"
-                placeholder="دسته‌بندی"
-                value={formData.category}
-                onChange={handleInputChange}
-              />
-              {errors.category && (
-                <span className="text-red-500 text-sm text-right">
-                  {errors.category}
-                </span>
-              )}
-            </div>
-
-            {/* Publish Button */}
             <Button
               type="submit"
               className="bg-secondary-400 text-black px-4 py-2 rounded-md"

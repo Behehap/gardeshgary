@@ -3,24 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import ChatMessage from "../components/ChatMessage";
-import { PersonStandingIcon } from "lucide-react";
 
-// API calls to get ticket details and messages
 const fetchTicketDetails = async (ticketId) => {
-  const response = await fetch(
-    `http://127.0.0.1:8000/api/user/tickets/${ticketId}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    }
-  );
-  const data = await response.json();
-  return data;
-};
-
-const fetchMessages = async (ticketId) => {
   const response = await fetch(
     `http://127.0.0.1:8000/api/user/tickets/${ticketId}`,
     {
@@ -43,7 +27,7 @@ const sendMessage = async (ticketId, messageData) => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(messageData), // Sending the messageData object
+      body: JSON.stringify(messageData),
     }
   );
 
@@ -56,21 +40,20 @@ const sendMessage = async (ticketId, messageData) => {
 };
 
 export default function TicketChat() {
-  const { ticketId } = useParams(); // Get the ticketId from the URL
+  const { ticketId } = useParams();
   const [ticketDetails, setTicketDetails] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Fetch ticket details and messages on component mount
   useEffect(() => {
     async function loadTicketData() {
       try {
         const ticket = await fetchTicketDetails(ticketId);
         setTicketDetails(ticket.data);
-
-        const ticketMessages = await fetchMessages(ticketId);
-        setMessages(ticketMessages);
+        setMessages(ticket.data.message);
+        // Set messages from ticket details
+        console.log("Messages from API:", ticket.data.message); // Debug: Check message data
       } catch (error) {
         console.error("Error fetching ticket data:", error);
       } finally {
@@ -81,17 +64,16 @@ export default function TicketChat() {
     loadTicketData();
   }, [ticketId]);
 
-  // Handle sending a new message
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
       const messageData = {
-        message: newMessage, // Backend expects 'message' field
+        message: newMessage,
       };
 
       try {
         const sentMessage = await sendMessage(ticketId, messageData);
         setMessages([...messages, sentMessage]); // Append the new message to the list
-        setNewMessage(""); // Clear input field
+        setNewMessage("");
       } catch (error) {
         console.error("Error sending message:", error);
       }
@@ -113,10 +95,8 @@ export default function TicketChat() {
         return "بسته شده";
       case "waiting for reply":
         return "در انتظار پاسخ";
-      case "":
-        return "";
       default:
-        return status; // Keep original if not matched
+        return status;
     }
   };
 
@@ -126,7 +106,6 @@ export default function TicketChat() {
 
   return (
     <div className="flex flex-col min-h-[750px] rounded-xl">
-      {/* Header */}
       {ticketDetails && (
         <div className="flex flex-col md:flex-row bg-accent-200 justify-between text-black p-4">
           <div>
@@ -147,16 +126,17 @@ export default function TicketChat() {
         </div>
       )}
 
-      {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-4 bg-accent-200 border-t border-natural-gray2">
         <h1 className="font-semibold"> عنوان تیکت: {ticketDetails?.title}</h1>
 
         {messages.length > 0 ? (
-          messages.map((message, index) => (
+          messages.map((message) => (
             <ChatMessage
-              key={index}
-              message={message}
-              isSupport={message.isSupport}
+              key={message.id}
+              message={message.message}
+              senderName={message.sender_name}
+              createdAt={formatDateToPersian(message.created_at)}
+              isSupport={message.sender_id !== 1} // Assuming sender_id of 1 means user, otherwise support
             />
           ))
         ) : (
@@ -166,7 +146,6 @@ export default function TicketChat() {
         )}
       </div>
 
-      {/* Input Field */}
       <div className="flex items-center p-4 bg-gray-100 gap-3">
         <input
           type="text"
