@@ -20,6 +20,7 @@
     "@radix-ui/react-switch": "^1.1.0",
     "@shadcn/ui": "^0.0.4",
     "axios": "^1.7.7",
+    "ckeditor4-react": "^5.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.445.0",

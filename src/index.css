@@ -56,6 +56,8 @@
     --chart-5: 340 75% 55%;
   }
 }
+@import "~@ckeditor/ckeditor5-build-classic/build/ckeditor.css";
+
 @layer base {
   body {
     font-family: "Vazirmatn", sans-serif;
