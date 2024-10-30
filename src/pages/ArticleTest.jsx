@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-const ArticlePage = () => {
+const ArticlePage = ({ initialArticleId }) => {
+  const [articleId, setArticleId] = useState(initialArticleId || null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
@@ -27,7 +28,6 @@ const ArticlePage = () => {
       return;
     }
 
-    // Ensure the content is valid HTML by wrapping it in <html><body> tags if needed
     const formattedContent = `
       <!DOCTYPE html>
       <html lang="en">
@@ -37,19 +37,15 @@ const ArticlePage = () => {
           <title>${title}</title>
       </head>
       <body>
-          <p>${content.trim() || "No content provided"}</p>
+          ${content.trim() || "<p>No content provided</p>"}
       </body>
       </html>
     `;
 
-    console.log("Formatted content:", formattedContent); // Log the formatted content for debugging
-
-    // Create a Blob from the formatted content
     const contentBlob = new Blob([formattedContent], { type: "text/html" });
-
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("content", contentBlob, "content.html"); // Name it as 'content.html'
+    formData.append("content", contentBlob, "content.html");
     formData.append("img", image);
 
     try {
@@ -71,6 +67,7 @@ const ArticlePage = () => {
       }
 
       const result = await response.json();
+      setArticleId(result.id); // Set articleId after creating the article
       alert("Article submitted successfully!");
     } catch (error) {
       console.error("Error submitting article:", error);
@@ -128,10 +125,19 @@ const ArticlePage = () => {
                 "blockQuote",
                 "insertTable",
                 "|",
+                "imageUpload",
                 "undo",
                 "redo",
               ],
-              allowedContent: true,
+              simpleUpload: {
+                uploadUrl: articleId
+                  ? `http://127.0.0.1:8000/api/user/articles/${articleId}/images`
+                  : "", // Set URL once articleId is available
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  Accept: "application/json",
+                },
+              },
             }}
           />
         </div>

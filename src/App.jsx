@@ -27,6 +27,7 @@ function App() {
             <Route path="/profile/*" element={<Profile />} />{" "}
             {/* Allow nested paths under profile */}
             <Route path="/article" element={<ArticleTest />} />
+            <Route path="/travel-exprience" element={<TravelExprience />} />
           </Routes>
         </div>
         <Footer />
