@@ -48,7 +48,7 @@ function MyTickets() {
   }
 
   return (
-    <div className="max-w-sm md:max-w-lg lg:max-w-full bg-accent-200 rounded-lg">
+    <div className="max-w-sm md:max-w-lg lg:max-w-full bg-accent-200 rounded-lg min-h-[500px]">
       <div className="flex flex-col border-b border-black px-4 py-5">
         <h1 className="font-bold text-xl mb-5">تیکت های من</h1>
         <div className="flex flex-col gap-3 lg:flex-row">
@@ -102,7 +102,9 @@ function MyTickets() {
             />
           ))
         ) : (
-          <p>No tickets found.</p>
+          <div className="flex justify-center full-w">
+            <p>شما هیچ تیکتی ندارید</p>
+          </div>
         )}
       </div>
     </div>

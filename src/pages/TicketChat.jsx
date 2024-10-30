@@ -136,7 +136,7 @@ export default function TicketChat() {
               message={message.message}
               senderName={message.sender_name}
               createdAt={formatDateToPersian(message.created_at)}
-              isSupport={message.sender_id !== 1} // Assuming sender_id of 1 means user, otherwise support
+              isSupport={message.senderName === "admin"}
             />
           ))
         ) : (
