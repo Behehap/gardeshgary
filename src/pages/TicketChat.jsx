@@ -53,6 +53,7 @@ export default function TicketChat() {
         setTicketDetails(ticket.data);
         setMessages(ticket.data.message);
         // Set messages from ticket details
+
         console.log("Messages from API:", ticket.data.message); // Debug: Check message data
       } catch (error) {
         console.error("Error fetching ticket data:", error);
@@ -130,15 +131,16 @@ export default function TicketChat() {
         <h1 className="font-semibold"> عنوان تیکت: {ticketDetails?.title}</h1>
 
         {messages.length > 0 ? (
+          (console.log(messages, "dd"),
           messages.map((message) => (
             <ChatMessage
               key={message.id}
               message={message.message}
               senderName={message.sender_name}
-              createdAt={formatDateToPersian(message.created_at)}
+              createdAt={message.created_at}
               isSupport={message.senderName === "admin"}
             />
-          ))
+          )))
         ) : (
           <div className="flex justify-center items-center w-full h-full">
             <h2>هیچ پیامی ارسال نشده</h2>
