@@ -7,6 +7,37 @@ const ArticlePage = ({ initialArticleId }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const [articles, setArticles] = useState([]); // State to store fetched articles
+  const [error, setError] = useState(null); // State for error handling
+  const [loading, setLoading] = useState(false); // Loading indicator state
+
+  // Fetch articles from backend
+  const fetchArticles = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/user/articles", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Authorization header
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch articles");
+      }
+
+      const data = await response.json();
+      setArticles(data); // Update to use the correct data format
+    } catch (error) {
+      setError(error.message); // Handle error
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -28,40 +59,11 @@ const ArticlePage = ({ initialArticleId }) => {
       return;
     }
 
-    // const formattedContent = `
-    //   <!DOCTYPE html>
-    //   <html lang="en">
-    //   <head>
-    //       <meta charset="UTF-8">
-    //       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    //       <title>${title}</title>
-    //   </head>
-    //   <body>
-    //       ${content.trim() || "<p>No content provided</p>"}
-    //   </body>
-    //   </html>
-    // `;
-
-    // console.log(content);
-
-    // const contentBlob = new Blob([formattedContent], { type: "text/html" });
-    // const formData = new FormData();
-    // formData.append("title", title);
-    // formData.append("content", contentBlob, "content.html");
-    // formData.append("img", image);
-
-    // console.log(content);
-
-    // console.log("Formatted content:", formattedContent); // Log the formatted content for debugging
-
-    // const contentBlob = new Blob([content], { type: "text/html" });
-
-    // console.log(contentBlob);
-
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
     formData.append("img", image);
+
     try {
       const token = localStorage.getItem("token");
       const response = await fetch("http://127.0.0.1:8000/api/user/articles", {
@@ -75,14 +77,14 @@ const ArticlePage = ({ initialArticleId }) => {
 
       if (!response.ok) {
         const errorResponse = await response.json();
-        console.error("Error details:", errorResponse);
         alert("Failed to submit the article: " + JSON.stringify(errorResponse));
         return;
       }
 
       const result = await response.json();
-      setArticleId(result.id); // Set articleId after creating the article
+      setArticleId(result.id);
       alert("Article submitted successfully!");
+      fetchArticles(); // Refresh articles list after successful submission
     } catch (error) {
       console.error("Error submitting article:", error);
       alert("Failed to submit the article.");
@@ -146,7 +148,7 @@ const ArticlePage = ({ initialArticleId }) => {
               simpleUpload: {
                 uploadUrl: articleId
                   ? `http://127.0.0.1:8000/api/user/articles/${articleId}/images`
-                  : "", // Set URL once articleId is available
+                  : "",
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem("token")}`,
                   Accept: "application/json",
@@ -164,6 +166,41 @@ const ArticlePage = ({ initialArticleId }) => {
           </button>
         </div>
       </form>
+
+      {/* Articles Display Section */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold">Articles</h2>
+        {loading ? (
+          <p>Loading articles...</p>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <ul className="space-y-4">
+            {articles.map((article) => (
+              <li key={article.id} className="border p-4 rounded-md shadow-sm">
+                <h3 className="text-xl font-medium">{article.title}</h3>
+                <p className="text-sm text-gray-500">
+                  Status: {article.status}
+                </p>
+                <p className="text-sm text-gray-500">
+                  Created at: {new Date(article.created_at).toLocaleString()}
+                </p>
+                <div
+                  className="prose"
+                  dangerouslySetInnerHTML={{ __html: article.content }}
+                />
+                {article.img && (
+                  <img
+                    src={article.img}
+                    alt={article.title}
+                    className="mt-4 max-h-64 object-cover rounded-md"
+                  />
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
