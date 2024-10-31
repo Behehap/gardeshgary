@@ -14,8 +14,11 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <div className="container mx-auto px-auto">
+      <div className="flex flex-col min-h-screen">
+        {/* Header and Main content */}
+        <div className="flex-grow container mx-auto px-4">
+          {" "}
+          {/* Adjusted padding */}
           <Navbar showModal={showModal} setShowModal={setShowModal} />
           <Routes>
             <Route
@@ -24,13 +27,14 @@ function App() {
                 <Home showModal={showModal} setShowModal={setShowModal} />
               }
             />
-            <Route path="/profile/*" element={<Profile />} />{" "}
-            {/* Allow nested paths under profile */}
+            <Route path="/profile/*" element={<Profile />} />
             <Route path="/article" element={<ArticleTest />} />
             <Route path="/travel-exprience" element={<TravelExprience />} />
           </Routes>
         </div>
-        <Footer />
+
+        {/* Footer at the bottom */}
+        <Footer className="mt-auto" />
       </div>
     </Router>
   );
