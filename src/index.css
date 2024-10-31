@@ -116,6 +116,19 @@
   font-style: italic;
 } */
 
+.ck-content h2 {
+  font-size: 40px;
+}
+.ck-content h3 {
+  font-size: 30px;
+}
+.ck-content h4 {
+  font-size: 20px;
+}
+.ck-content p {
+  font-size: 15px;
+}
+
 .vazir {
   font-family: "Vazirmatn";
 }
