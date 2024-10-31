@@ -33,7 +33,7 @@ const HomeArticle = ({ title, imageUrl, content, createdAt }) => {
       <div className="w-3/4 p-4 flex flex-col justify-between">
         <h2 className="text-xl font-bold text-black">{title}</h2>
         <p
-          className="text-gray-600 mt-2 line-clamp-2"
+          className="text-gray-600 mt-2 line-clamp-2 w-3/5"
           dangerouslySetInnerHTML={{ __html: content }}
         />
         <div className="flex flex-col justify-start text-gray-400 text-sm mt-4">
