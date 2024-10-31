@@ -28,26 +28,40 @@ const ArticlePage = ({ initialArticleId }) => {
       return;
     }
 
-    const formattedContent = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>${title}</title>
-      </head>
-      <body>
-          ${content.trim() || "<p>No content provided</p>"}
-      </body>
-      </html>
-    `;
+    // const formattedContent = `
+    //   <!DOCTYPE html>
+    //   <html lang="en">
+    //   <head>
+    //       <meta charset="UTF-8">
+    //       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    //       <title>${title}</title>
+    //   </head>
+    //   <body>
+    //       ${content.trim() || "<p>No content provided</p>"}
+    //   </body>
+    //   </html>
+    // `;
 
-    const contentBlob = new Blob([formattedContent], { type: "text/html" });
+    // console.log(content);
+
+    // const contentBlob = new Blob([formattedContent], { type: "text/html" });
+    // const formData = new FormData();
+    // formData.append("title", title);
+    // formData.append("content", contentBlob, "content.html");
+    // formData.append("img", image);
+
+    // console.log(content);
+
+    // console.log("Formatted content:", formattedContent); // Log the formatted content for debugging
+
+    // const contentBlob = new Blob([content], { type: "text/html" });
+
+    // console.log(contentBlob);
+
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("content", contentBlob, "content.html");
+    formData.append("content", content);
     formData.append("img", image);
-
     try {
       const token = localStorage.getItem("token");
       const response = await fetch("http://127.0.0.1:8000/api/user/articles", {

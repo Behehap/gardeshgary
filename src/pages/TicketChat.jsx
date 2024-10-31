@@ -127,7 +127,7 @@ export default function TicketChat() {
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto p-4 bg-accent-200 border-t border-natural-gray2">
+      <div className="flex flex-col overflow-y-auto p-4 bg-accent-200 border-t border-natural-gray2">
         <h1 className="font-semibold"> عنوان تیکت: {ticketDetails?.title}</h1>
 
         {messages.length > 0 ? (
@@ -138,7 +138,7 @@ export default function TicketChat() {
               message={message.message}
               senderName={message.sender_name}
               createdAt={message.created_at}
-              isSupport={message.senderName === "admin"}
+              isSupport={message.sender_name == "admin"}
             />
           )))
         ) : (

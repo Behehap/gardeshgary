@@ -31,7 +31,7 @@ const Navbar = ({ showModal, setShowModal }) => {
       <div className="absolute left-2 flex items-center md:hidden">
         <Link
           to="profile"
-          className="bg-blue-400 border-2 border-secondary-500 text-white px-3 py-1 rounded-lg font-medium text-sm text-nowrap"
+          className="bg-blue-400  text-white px-3 py-1 rounded-lg font-medium text-sm text-nowrap"
         >
           پروفایل
         </Link>
