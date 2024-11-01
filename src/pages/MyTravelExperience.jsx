@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import WriteTravelExperience from "./WriteTravelExperience";
 import CompleteProfileModal from "../components/CompleteProfileModal";
 import { useState, useCallback, useEffect } from "react";
+import EmptyPage from "./EmptyPage";
 
 const MyTravelexperience = () => {
   const [showCompleteProfileModal, setShowCompleteProfileModal] =
@@ -52,6 +53,11 @@ const MyTravelexperience = () => {
       <div>
         <Routes>
           <Route path="/" element={<WriteTravelExperience />} />
+          <Route path="/empty-page1" element={<EmptyPage />} />
+          <Route path="/empty-page2" element={<EmptyPage />} />
+          <Route path="/empty-page3" element={<EmptyPage />} />
+          <Route path="/empty-page4" element={<EmptyPage />} />
+          <Route path="/empty-page5" element={<EmptyPage />} />
         </Routes>
       </div>
     </div>

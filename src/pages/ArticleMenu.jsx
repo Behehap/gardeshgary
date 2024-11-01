@@ -6,6 +6,7 @@ import { BiHeartCircle, BiBookmarks } from "react-icons/bi";
 import { LiaMedalSolid } from "react-icons/lia";
 import { useLocation, useNavigate } from "react-router-dom";
 import CompleteProfileModal from "../components/CompleteProfileModal";
+import EmptyPage from "./EmptyPage";
 
 function ArticleMenu({
   showCompleteProfileModal,
@@ -83,32 +84,33 @@ function ArticleMenu({
           <MenuItem
             icon={<BsCheckCircle />}
             label=" تجربیات منتشر شده"
-            to="/profile/notifications"
-            activeColor="text-secondary-500"
+            to="/my-travel-experience/empty-page1"
+            activeColor="text-primary-700"
           />
           <MenuItem
             icon={<BsBarChart />}
             label="آمار بازدید مقاله ها"
-            to="/profile/tickets"
-            activeColor="text-primary-700"
+            to="/my-travel-experience/empty-page2"
+            activeColor="text-secondary-500"
           />
           <MenuItem
             icon={<BiHeartCircle />}
             label=" سفرهای پیشنهادی  "
-            to="/profile/logout"
+            to="/my-travel-experience/empty-page3"
             activeColor="text-state-error-red2"
           />
           <MenuItem
             icon={<BiBookmarks />}
             label="  مقالات ذخیره شده من  "
-            to="/profile/logout"
-            activeColor="text-state-error-red2"
+            to="/my-travel-experience/empty-page4"
+            activeColor="text-primary-500"
           />
           <MenuItem
             icon={<LiaMedalSolid />}
+            to="/my-travel-experience/empty-page5"
             label=" امتیازات من  "
-            to="/profile/logout"
-            activeColor="text-state-error-red2"
+            activeColor="text-accent-500"
+            t
           />
         </div>
       </div>

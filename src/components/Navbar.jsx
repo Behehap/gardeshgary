@@ -24,7 +24,7 @@ const Navbar = ({ showModal, setShowModal }) => {
     {
       name: "تجربه های سفر",
       icon: "🌏",
-      href: "/travel-experience",
+
       hasDropdown: true,
     },
     { name: "جستجو", icon: "🔍", href: "#" },
@@ -127,7 +127,7 @@ const Navbar = ({ showModal, setShowModal }) => {
                         صفحه تجربیات
                       </Link>
                       <Link
-                        to="/my-travle-experience"
+                        to="/my-travel-experience"
                         className="block py-2 px-4 text-center hover:bg-gray-200"
                         onClick={() => setIsMenuOpen(false)}
                       >
@@ -163,12 +163,14 @@ const Navbar = ({ showModal, setShowModal }) => {
                     <Link
                       to="/travel-experience"
                       className="block px-4 py-2 hover:bg-gray-100"
+                      onClick={() => setIsDropdownOpen(false)}
                     >
                       صفحه تجربیات
                     </Link>
                     <Link
                       to="/my-travel-experience"
                       className="block px-4 py-2 hover:bg-gray-100"
+                      onClick={() => setIsDropdownOpen(false)}
                     >
                       تجربه های سفر من
                     </Link>
@@ -177,31 +179,31 @@ const Navbar = ({ showModal, setShowModal }) => {
               </div>
             ))}
           </ul>
+        </div>
 
-          {/* Right side buttons */}
-          <div className="flex gap-2">
-            {isAuthenticated ? (
-              <Link
-                to="profile"
-                className="flex items-center justify-center gap-1 border-2 h-8 border-secondary-500 text-black px-3 py-4 rounded-md font-medium text-sm text-nowrap"
-              >
-                <BsFillPersonFill className="text-xl" />
-                پروفایل
-              </Link>
-            ) : (
-              <Button
-                onClick={() => setShowModal(true)}
-                className="bg-secondary-500 h-8 text-white px-3 py-4 rounded-lg font-medium border-2 border-secondary-500 text-sm text-nowrap"
-              >
-                ثبت نام
-              </Button>
-            )}
-
-            {/* New Additional Button */}
-            <Button className="bg-secondary-500 border border-secondary-500 h-8 text-white px-3 py-4 rounded-md font-medium   text-sm text-nowrap">
-              دانلود اپلیکیشن
+        {/* Right side buttons */}
+        <div className="flex gap-2">
+          {isAuthenticated ? (
+            <Link
+              to="profile"
+              className="flex items-center justify-center gap-1 border-2 h-8 border-secondary-500 text-black px-3 py-4 rounded-md font-medium text-sm text-nowrap"
+            >
+              <BsFillPersonFill className="text-xl" />
+              پروفایل
+            </Link>
+          ) : (
+            <Button
+              onClick={() => setShowModal(true)}
+              className="bg-secondary-500 h-8 text-white px-3 py-4 rounded-lg font-medium border-2 border-secondary-500 text-sm text-nowrap"
+            >
+              ثبت نام
             </Button>
-          </div>
+          )}
+
+          {/* New Additional Button */}
+          <Button className="bg-secondary-500 border border-secondary-500 h-8 text-white px-3 py-4 rounded-md font-medium   text-sm text-nowrap">
+            دانلود اپلیکیشن
+          </Button>
         </div>
       </div>
     </nav>
