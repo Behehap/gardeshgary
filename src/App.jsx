@@ -8,6 +8,8 @@ import Navbar from "./components/Navbar.jsx";
 import TravelExprience from "./pages/TravelExperience.jsx";
 import PublishArticle from "./pages/PublishingArticle.jsx";
 import ArticleTest from "./pages/ArticleTest.jsx";
+import AddArticle from "./components/AddArticle.jsx";
+import AArticle from "./pages/AArticle.jsx";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -30,6 +32,7 @@ function App() {
             <Route path="/profile/*" element={<Profile />} />
             <Route path="/article" element={<ArticleTest />} />
             <Route path="/travel-exprience" element={<TravelExprience />} />
+            <Route path="/my-travle-exprience" element={<AArticle />} />
           </Routes>
         </div>
 
