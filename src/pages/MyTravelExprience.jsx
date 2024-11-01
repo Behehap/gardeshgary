@@ -3,7 +3,7 @@ import ArticleMenu from "./ArticleMenu";
 import { Routes, Route } from "react-router-dom";
 import WriteTravelExperience from "./WriteTravelExperience";
 
-const AddArticle = () => {
+const MyTravelExprience = () => {
   return (
     <div className="flex flex-col lg:flex-row w-full p-4 ">
       <ArticleMenu />
@@ -19,4 +19,4 @@ const AddArticle = () => {
   );
 };
 
-export default AddArticle;
+export default MyTravelExprience;
