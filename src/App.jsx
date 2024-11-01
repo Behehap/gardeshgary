@@ -9,7 +9,7 @@ import TravelExprience from "./pages/TravelExperience.jsx";
 import PublishArticle from "./pages/PublishingArticle.jsx";
 import ArticleTest from "./pages/ArticleTest.jsx";
 import AddArticle from "./components/AddArticle.jsx";
-import AArticle from "./pages/AArticle.jsx";
+import MyTravelExprience from "./pages/MyTravelExprience.jsx";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -32,7 +32,10 @@ function App() {
             <Route path="/profile/*" element={<Profile />} />
             <Route path="/article" element={<ArticleTest />} />
             <Route path="/travel-exprience" element={<TravelExprience />} />
-            <Route path="/my-travle-exprience" element={<AArticle />} />
+            <Route
+              path="/my-travle-exprience/*"
+              element={<MyTravelExprience />}
+            />
           </Routes>
         </div>
 

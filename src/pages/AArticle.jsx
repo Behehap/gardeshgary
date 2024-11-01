@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import AddArticle from "./AddArticle";
+import AddArticle from "./MyTravelExprience";
 import ArticleLists from "./ArticleLists";
 
 const AArticle = () => {
@@ -43,7 +43,7 @@ const AArticle = () => {
   };
 
   return (
-    <div dir="ltr">
+    <div>
       <div className="flex flex-col items-center mt-3">
         <AddArticle onAdd={addProduct} />
         <ArticleLists articles={articles} onDelete={deleteProduct} />
