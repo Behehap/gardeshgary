@@ -48,7 +48,7 @@ function MyTickets() {
   }
 
   return (
-    <div className="max-w-sm md:max-w-lg lg:max-w-full bg-accent-200 rounded-lg min-h-[500px]">
+    <div className="max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-full bg-accent-200 rounded-lg min-h-[500px]">
       <div className="flex flex-col border-b border-black px-4 py-5">
         <h1 className="font-bold text-xl mb-5">تیکت های من</h1>
         <div className="flex flex-col gap-3 lg:flex-row">
@@ -90,7 +90,7 @@ function MyTickets() {
       </div>
 
       {/* Display tickets dynamically */}
-      <div className="flex flex-col gap-5 m-5">
+      <div className="flex-1 flex-col gap-5 m-5">
         {tickets.length > 0 ? (
           tickets.map((ticket) => (
             <Ticket
