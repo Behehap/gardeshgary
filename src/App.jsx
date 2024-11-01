@@ -5,11 +5,11 @@ import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
 import Footer from "./components/Footer1.jsx";
 import Navbar from "./components/Navbar.jsx";
-import TravelExprience from "./pages/TravelExperience.jsx";
+import TravelExperience from "./pages/TravelExperience.jsx";
 import PublishArticle from "./pages/PublishingArticle.jsx";
 import ArticleTest from "./pages/ArticleTest.jsx";
 import AddArticle from "./components/AddArticle.jsx";
-import MyTravelExprience from "./pages/MyTravelExprience.jsx";
+import MyTravelExperience from "./pages/MyTravelExperience.jsx";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -31,10 +31,10 @@ function App() {
             />
             <Route path="/profile/*" element={<Profile />} />
             <Route path="/article" element={<ArticleTest />} />
-            <Route path="/travel-exprience" element={<TravelExprience />} />
+            <Route path="/travel-experience" element={<TravelExperience />} />
             <Route
-              path="/my-travle-exprience/*"
-              element={<MyTravelExprience />}
+              path="/my-travel-experience/*"
+              element={<MyTravelExperience />}
             />
           </Routes>
         </div>

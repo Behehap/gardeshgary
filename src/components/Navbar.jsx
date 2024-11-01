@@ -24,7 +24,7 @@ const Navbar = ({ showModal, setShowModal }) => {
     {
       name: "تجربه های سفر",
       icon: "🌏",
-      href: "",
+      href: "/travel-experience",
       hasDropdown: true,
     },
     { name: "جستجو", icon: "🔍", href: "#" },
@@ -120,14 +120,14 @@ const Navbar = ({ showModal, setShowModal }) => {
                   {item.hasDropdown && isDropdownOpen && (
                     <div className="w-full bg-gray-50">
                       <Link
-                        to="/travel-exprience"
+                        to="/travel-experience"
                         className="block py-2 px-4 text-center hover:bg-gray-200"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         صفحه تجربیات
                       </Link>
                       <Link
-                        to="/my-travle-exprience"
+                        to="/my-travle-experience"
                         className="block py-2 px-4 text-center hover:bg-gray-200"
                         onClick={() => setIsMenuOpen(false)}
                       >
@@ -161,13 +161,13 @@ const Navbar = ({ showModal, setShowModal }) => {
                 {item.hasDropdown && isDropdownOpen && (
                   <div className="absolute top-full mt-1 bg-white border rounded shadow-lg text-sm text-black">
                     <Link
-                      to="/travel-exprience"
+                      to="/travel-experience"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
                       صفحه تجربیات
                     </Link>
                     <Link
-                      to="/my-travle-exprience"
+                      to="/my-travel-experience"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
                       تجربه های سفر من

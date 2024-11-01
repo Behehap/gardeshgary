@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import AddArticle from "./MyTravelExprience";
+import AddArticle from "./MyTravelexperience";
 import ArticleLists from "./ArticleLists";
 
 const AArticle = () => {

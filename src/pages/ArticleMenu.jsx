@@ -77,7 +77,7 @@ function ArticleMenu({
           <MenuItem
             icon={<HiDocumentPlus />}
             label=" نوشتن تجربه جدید سفر"
-            to="/write-travel-experience"
+            to="/my-travel-experience"
             activeColor="text-accent-600"
           />
           <MenuItem
