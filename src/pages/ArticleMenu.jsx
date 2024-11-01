@@ -7,7 +7,7 @@ import { LiaMedalSolid } from "react-icons/lia";
 import { useLocation, useNavigate } from "react-router-dom";
 import CompleteProfileModal from "../components/CompleteProfileModal";
 
-function SidebarMenu({
+function ArticleMenu({
   showCompleteProfileModal,
   setShowCompleteProfileModal,
   checkProfileCompletion,
@@ -116,4 +116,4 @@ function SidebarMenu({
   );
 }
 
-export default SidebarMenu;
+export default ArticleMenu;
