@@ -50,7 +50,7 @@ function SidebarMenu({
   };
 
   return (
-    <div className="ml-5 my-5 ">
+    <div className="lg:ml-5 my-5 ">
       {showCompleteProfileModal && (
         <CompleteProfileModal
           showCompleteProfileModal={showCompleteProfileModal}

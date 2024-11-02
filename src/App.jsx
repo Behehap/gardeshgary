@@ -16,31 +16,32 @@ function App() {
 
   return (
     <Router>
-      <div className="flex flex-col min-h-screen max-h-screen ">
+      <div className="flex flex-col min-h-screen">
         {/* Header and Main content */}
-        <div className="flex-grow container mx-auto px-4">
-          {" "}
-          {/* Adjusted padding */}
+        <div className="flex-grow container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Navbar showModal={showModal} setShowModal={setShowModal} />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home showModal={showModal} setShowModal={setShowModal} />
-              }
-            />
-            <Route path="/profile/*" element={<Profile />} />
-            <Route path="/article" element={<ArticleTest />} />
-            <Route path="/travel-experience" element={<TravelExperience />} />
-            <Route
-              path="/my-travel-experience/*"
-              element={<MyTravelExperience />}
-            />
-          </Routes>
+
+          <div className="py-6">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Home showModal={showModal} setShowModal={setShowModal} />
+                }
+              />
+              <Route path="/profile/*" element={<Profile />} />
+              <Route path="/article" element={<ArticleTest />} />
+              <Route path="/travel-experience" element={<TravelExperience />} />
+              <Route
+                path="/my-travel-experience/*"
+                element={<MyTravelExperience />}
+              />
+            </Routes>
+          </div>
         </div>
 
         {/* Footer at the bottom */}
-        <Footer className="mt-auto" />
+        <Footer className="mt-auto bg-gray-100 p-4" />
       </div>
     </Router>
   );

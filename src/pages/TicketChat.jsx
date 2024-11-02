@@ -52,8 +52,6 @@ export default function TicketChat() {
         const ticket = await fetchTicketDetails(ticketId);
         setTicketDetails(ticket.data);
         setMessages(ticket.data.message);
-
-        console.log("Messages from API:", ticket.data.message); // Debug: Check message data
       } catch (error) {
         console.error("Error fetching ticket data:", error);
       } finally {
@@ -101,65 +99,81 @@ export default function TicketChat() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
 
   return (
-    <div className="flex flex-col min-h-[750px] rounded-lg shadow-lg">
-      {ticketDetails && (
-        <div className="flex flex-col md:flex-row bg-accent-200 justify-between text-black p-4 rounded-t-lg">
-          <div>
-            <h1 className="text-2xl font-bold pl-10">{ticketDetails.title}</h1>
-          </div>
-          <ul className="flex flex-col md:flex-row font-light gap-4 md:gap-16 px-2 text-center">
-            <li>وضعیت: {translateStatus(ticketDetails.status)}</li>
-            <li>تاریخ ارسال: {formatDateToPersian(ticketDetails.create_at)}</li>
-            <li>شماره تیکت: {ticketId}</li>
-          </ul>
-          <div className="flex justify-center md:justify-start">
-            <Button size="sm" className="text-accent-400 text-4xl">
+    <div className="flex justify-center px-2 w-full md:px-4">
+      <div className="flex flex-col  min-h-[600px] w-full max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl 2xl:max-w-3xl rounded-lg shadow-lg">
+        {ticketDetails && (
+          <div className="flex flex-col md:flex-row items-start md:items-center bg-accent-200 justify-between text-black p-2 md:p-4 rounded-t-lg">
+            <div className="flex basis-3/6 md:basis-1/6  justify-between w-full items-center gap-2">
+              <h1 className="text-lg md:text-2xl font-semibold">تیکت های من</h1>
+              <Button
+                size="sm"
+                className="text-accent-400 text-3xl md:hidden flex justify-center"
+              >
+                <Link to="/profile/tickets">
+                  <IoArrowBackCircle />
+                </Link>
+              </Button>
+            </div>
+            <ul className="flex flex-col md:flex-row font-light text-sm md:text-base lg:text-lg gap-1 md:gap-3 mt-1 md:mt-0">
+              <li>وضعیت: {translateStatus(ticketDetails.status)}</li>
+              <li>
+                تاریخ ارسال: {formatDateToPersian(ticketDetails.create_at)}
+              </li>
+              <li>شماره تیکت: {ticketId}</li>
+            </ul>
+            <Button
+              size="sm"
+              className="hidden md:flex text-accent-400 text-3xl"
+            >
               <Link to="/profile/tickets">
                 <IoArrowBackCircle />
               </Link>
             </Button>
           </div>
-        </div>
-      )}
-
-      <div className="flex flex-col overflow-y-auto p-4 bg-accent-200 border-t border-natural-gray2">
-        <h1 className="font-semibold"> عنوان تیکت: {ticketDetails?.title}</h1>
-
-        {messages.length > 0 ? (
-          messages.map((message) => (
-            <ChatMessage
-              key={message.id}
-              message={message.message}
-              senderName={message.sender_name}
-              createdAt={message.created_at}
-              isSupport={message.sender_name == "admin"}
-            />
-          ))
-        ) : (
-          <div className="flex justify-center items-center w-full h-full">
-            <h2>هیچ پیامی ارسال نشده</h2>
-          </div>
         )}
-      </div>
 
-      <div className="flex items-center p-4 bg-gray-100 gap-3 rounded-b-lg">
-        <input
-          type="text"
-          className="flex-1 p-2 border border-gray-300 rounded-lg"
-          placeholder="پیام خود را بنویسید..."
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-        <button
-          onClick={handleSendMessage}
-          className="bg-blue-500 text-white px-4 py-2 ml-2 rounded-lg"
-        >
-          ارسال
-        </button>
+        {/* Messages */}
+        <div className="flex flex-col overflow-y-auto p-3 bg-accent-200 border-t-4 border-gray-500 h-[500px] md:h-[600px] lg:h-[700px]">
+          <h2 className="font-semibold text-base md:text-lg lg:text-xl pt-2 pb-6">
+            عنوان تیکت: {ticketDetails?.title}
+          </h2>
+          {messages.length > 0 ? (
+            messages.map((message) => (
+              <ChatMessage
+                key={message.id}
+                message={message.message}
+                senderName={message.sender_name}
+                createdAt={message.created_at}
+                isSupport={message.sender_name === "admin"}
+              />
+            ))
+          ) : (
+            <div className="flex justify-center items-center w-full h-full">
+              <h2>هیچ پیامی ارسال نشده</h2>
+            </div>
+          )}
+        </div>
+
+        {/* Input */}
+        <div className="flex items-center p-2 md:p-3 lg:p-4 bg-gray-100 gap-2 rounded-b-lg border-t border-gray-300">
+          <input
+            type="text"
+            className="flex-1 p-1 md:p-2 lg:p-3 border border-gray-300 rounded-lg text-sm md:text-base lg:text-lg"
+            placeholder="پیام خود را بنویسید..."
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+          />
+          <button
+            onClick={handleSendMessage}
+            className="bg-blue-500 text-white px-3 py-1 md:px-4 md:py-2 lg:px-5 lg:py-3 rounded-lg text-sm md:text-base lg:text-lg"
+          >
+            ارسال
+          </button>
+        </div>
       </div>
     </div>
   );
