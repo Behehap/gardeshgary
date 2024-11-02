@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
 import { Button } from "./ui/button"; // Assuming you have a reusable Button component
-
 import { Input } from "./ui/input"; // Assuming you have a reusable Input component
 import { FaTriangleExclamation } from "react-icons/fa6";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CompleteProfileModal({
   showCompleteProfileModal,
@@ -49,15 +50,15 @@ function CompleteProfileModal({
       );
 
       if (response.ok) {
-        alert("Profile completed successfully!");
-        console.log(await response.json());
+        console.log("Toast should trigger"); // Add this line
+        toast.success("پروفایل با موفقیت تکمیل شد!");
         setShowCompleteProfileModal(false);
       } else {
         const data = await response.json();
-        setErrorMessage(data.message || "Error completed profile");
+        setErrorMessage(data.message || "خطا در تکمیل پروفایل");
       }
     } catch (error) {
-      setErrorMessage("Failed to connect to server. Please try again.");
+      setErrorMessage("ارتباط با سرور برقرار نشد. لطفا دوباره تلاش کنید.");
     } finally {
       setIsLoading(false);
     }
@@ -67,6 +68,7 @@ function CompleteProfileModal({
 
   return (
     <div className="fixed w-full inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+      <ToastContainer />
       <div className="w-full bg-white rounded-lg shadow-lg max-w-md w-full p-6 sm:p-8">
         {step === 1 && (
           <div className="flex flex-col justify-between items-center mb-4 animate-fadeIn">

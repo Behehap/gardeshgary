@@ -146,14 +146,13 @@ function WriteTravelExperience({ initialArticleId }) {
               className="hidden"
             />
           </div>
-
-          <div className="flex flex-col w-full mb-6">
-            <label className="text-start mb-2 font-bold">متن مقاله</label>
+          <div className="w-full min-h-32">
             <CKEditor
               editor={ClassicEditor}
-              data="<p>Enter your content here...</p>"
+              data=""
               onChange={handleContentChange}
               config={{
+                language: "fa", // Sets the editor's UI to Farsi if available
                 toolbar: [
                   "heading",
                   "|",
@@ -168,9 +167,24 @@ function WriteTravelExperience({ initialArticleId }) {
                   "insertTable",
                   "|",
                   "imageUpload",
+                  "|",
                   "undo",
                   "redo",
+                  "|",
+                  "textDirection", // Adds RTL/LTR text direction toggle
                 ],
+                fontFamily: {
+                  options: [
+                    "default",
+                    "Tahoma, Arial, sans-serif",
+                    "Vazirmatn, sans-serif", // Add commonly used fonts for Farsi
+                  ],
+                  supportAllValues: true,
+                },
+                fontSize: {
+                  options: ["default", "small", "big", "large"],
+                },
+                textDirection: "rtl", // Sets the default text direction to RTL
                 simpleUpload: {
                   uploadUrl: articleId
                     ? `http://127.0.0.1:8000/api/user/articles/${articleId}/images`
@@ -183,7 +197,6 @@ function WriteTravelExperience({ initialArticleId }) {
               }}
             />
           </div>
-
           <div className="flex w-full justify-start">
             <button
               type="button"
