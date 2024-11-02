@@ -12,11 +12,16 @@ import AddArticle from "./components/AddArticle.jsx";
 import MyTravelExperience from "./pages/MyTravelExperience.jsx";
 import ArticlePage from "./components/ArticlePage.jsx";
 
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <Router>
+      <ToastContainer />
       <div className="flex flex-col min-h-screen">
         {/* Header and Main content */}
         <div className="flex-grow container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

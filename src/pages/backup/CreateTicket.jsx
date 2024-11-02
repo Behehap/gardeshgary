@@ -9,8 +9,9 @@ import {
   SelectItem,
   SelectValue,
 } from "../components/ui/select";
-
 import { Label } from "../components/ui/label";
+import { toast, ToastContainer } from "react-toastify"; // Importing toast and ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import toastify CSS
 
 function CreateTicket() {
   const [formData, setFormData] = useState({
@@ -41,7 +42,7 @@ function CreateTicket() {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.size > 5 * 1024 * 1024) {
-      alert("حداکثر حجم فایل 5 مگابایت است");
+      toast.error("حداکثر حجم فایل 5 مگابایت است"); // Error toast
       return;
     }
     setFile(selectedFile);
@@ -60,18 +61,22 @@ function CreateTicket() {
       try {
         setLoading(true);
         // Send form data (example purpose, replace with actual API call)
-        alert("تیکت با موفقیت ارسال شد");
+        // Assuming a successful API response here
+        toast.success("تیکت با موفقیت ارسال شد"); // Success toast
       } catch (error) {
         console.error("Error submitting the ticket:", error);
-        alert("خطایی رخ داد، لطفاً مجدداً تلاش کنید");
+        toast.error("خطایی رخ داد، لطفاً مجدداً تلاش کنید"); // Error toast
       } finally {
         setLoading(false);
       }
+    } else {
+      toast.error("لطفا تمام فیلدهای ضروری را پر کنید."); // Error toast for validation
     }
   };
 
   return (
     <div className="min-h-screen flex justify-center items-center ">
+      <ToastContainer /> {/* Toast container for displaying notifications */}
       <div className="bg-blue-200 shadow-lg rounded-lg p-8 w-full max-w-lg">
         <h2 className="text-xl font-bold p-4 text-right">ایجاد تیکت</h2>
         <p className="text-sm font-semibold text-black mb-6 text-right">
@@ -153,7 +158,7 @@ function CreateTicket() {
 
           {/* Submit Buttons */}
           <div className="flex justify-between items-center">
-            {/*send file*/}
+            {/* Send file */}
             <label className="bg-gray-400 text-white rounded-md px-4 py-2 cursor-pointer">
               ارسال پیوست
               <input

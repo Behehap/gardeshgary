@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { IoCameraOutline, IoCloseCircle } from "react-icons/io5";
+import { toast, ToastContainer } from "react-toastify"; // Importing toast and ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import toastify CSS
 import articlev from "./img/article.mp4";
-import { useState, useRef } from "react";
+
 function WriteTravelExperience({ initialArticleId }) {
   const [title, setTitle] = useState("");
   const [editorData, setEditorData] = useState("");
@@ -24,7 +26,7 @@ function WriteTravelExperience({ initialArticleId }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!title || !content || !image) {
-      alert("Please fill in all required fields.");
+      toast.error("Please fill in all required fields."); // Error toast
       return;
     }
 
@@ -46,20 +48,24 @@ function WriteTravelExperience({ initialArticleId }) {
 
       if (!response.ok) {
         const errorResponse = await response.json();
-        alert("Failed to submit the article: " + JSON.stringify(errorResponse));
+        toast.error(
+          "Failed to submit the article: " + JSON.stringify(errorResponse)
+        ); // Error toast
         return;
       }
 
       const result = await response.json();
       setArticleId(result.id);
-      alert("Article submitted successfully!");
+      toast.success("Article submitted successfully!"); // Success toast
     } catch (error) {
       console.error("Error submitting article:", error);
-      alert("Failed to submit the article.");
+      toast.error("Failed to submit the article."); // Error toast
     }
   };
+
   return (
     <div>
+      <ToastContainer /> {/* Toast container for displaying notifications */}
       <div className="flex flex-col w-full lg:w-3/4 lg:p-6">
         <div className="w-full flex justify-center mb-6 lg:mb-10">
           <video width="100%" controls className="rounded-md shadow-md">
@@ -146,6 +152,7 @@ function WriteTravelExperience({ initialArticleId }) {
               className="hidden"
             />
           </div>
+
           <div className="w-full min-h-32">
             <CKEditor
               editor={ClassicEditor}
@@ -181,7 +188,6 @@ function WriteTravelExperience({ initialArticleId }) {
                   ],
                   supportAllValues: true,
                 },
-
                 textDirection: "rtl", // Sets the default text direction to RTL
                 simpleUpload: {
                   uploadUrl: articleId
@@ -195,6 +201,7 @@ function WriteTravelExperience({ initialArticleId }) {
               }}
             />
           </div>
+
           <div className="flex w-full justify-start">
             <button
               type="button"

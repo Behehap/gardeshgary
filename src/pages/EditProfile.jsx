@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { MdEdit } from "react-icons/md";
 import React from "react";
+import { toast } from "react-toastify";
 
 function EditProfile() {
   const [fullNameInput, setFullNameInput] = useState("");
@@ -75,32 +76,55 @@ function EditProfile() {
 
   // Handle save and send updated data to backend
   const handleSave = async () => {
-    const payload = {
-      name: fullNameInput,
-      username: userNameInput,
-      avatar: avatarInput,
-    };
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/user/", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        alert("پروفایل با موفقیت بروزرسانی شد");
-        setIsChanged(false);
-        fetchProfile();
-      } else {
-        alert("خطایی در بروزرسانی پروفایل رخ داد");
-      }
-    } catch (error) {
-      console.error("Error updating profile:", error);
+    // Create a payload with only the changed fields
+    const payload = {};
+    if (fullNameInput !== originalData.fullName) {
+      payload.name = fullNameInput;
     }
+    if (userNameInput !== originalData.userName) {
+      payload.name = fullNameInput;
+      payload.username = userNameInput;
+    }
+    if (avatarInput !== originalData.avatar) {
+      payload.avatar = avatarInput;
+    }
+
+    // If no fields have changed, don't make an API call
+    if (Object.keys(payload).length === 0) {
+      toast.info("هیچ تغییری ایجاد نشده است");
+      return;
+    }
+
+    // Use toast.promise to handle the promise state
+    toast.promise(
+      new Promise(async (resolve, reject) => {
+        try {
+          const response = await fetch("http://127.0.0.1:8000/api/user/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (response.ok) {
+            resolve();
+            setIsChanged(false);
+            fetchProfile(); // Refresh data after successful save
+          } else {
+            reject(new Error("خطایی در بروزرسانی پروفایل رخ داد"));
+          }
+        } catch (error) {
+          reject(error);
+        }
+      }),
+      {
+        pending: "در حال ذخیره‌سازی...",
+        success: "پروفایل با موفقیت بروزرسانی شد 👌",
+        error: "بروزرسانی پروفایل با خطا مواجه شد 🤯",
+      }
+    );
   };
 
   const handleCancel = () => {

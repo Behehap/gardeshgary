@@ -9,20 +9,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
 import { IoArrowBackCircle } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 function CreateTicket() {
   const [formData, setFormData] = useState({
     subject: "",
     priority: "",
     content: "",
   });
-
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -40,7 +39,7 @@ function CreateTicket() {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.size > 5 * 1024 * 1024) {
-      alert("حداکثر حجم فایل 5 مگابایت است");
+      toast.error("حداکثر حجم فایل 5 مگابایت است");
       return;
     }
     setFile(selectedFile);
@@ -62,45 +61,45 @@ function CreateTicket() {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      // Prepare form data for submission
       const formDataToSend = new FormData();
       formDataToSend.append("title", formData.subject);
       formDataToSend.append("message", formData.content);
       formDataToSend.append("priority", formData.priority);
       if (file) {
-        formDataToSend.append("file", file); // Attach file if exists
+        formDataToSend.append("file", file);
       }
 
       try {
-        setLoading(true); // Set loading state
+        setLoading(true);
         const response = await fetch("http://127.0.0.1:8000/api/user/tickets", {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming token is stored in localStorage
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: formDataToSend,
         });
 
         if (response.ok) {
           const res = await response.json();
-          alert("تیکت با موفقیت ارسال شد");
+          toast.success("تیکت با موفقیت ارسال شد");
           console.log("Response:", res);
         } else {
           const errorData = await response.json();
-          console.error("Error:", errorData);
-          alert("خطایی رخ داد: " + errorData.message);
+          toast.error("خطایی رخ داد: " + errorData.message);
         }
       } catch (error) {
-        console.error("Error submitting the ticket:", error);
-        alert("خطایی رخ داد، لطفاً مجدداً تلاش کنید");
+        toast.error("خطایی رخ داد، لطفاً مجدداً تلاش کنید");
       } finally {
-        setLoading(false); // Reset loading state
+        setLoading(false);
       }
+    } else {
+      // Display validation errors as toasts
+      Object.values(validationErrors).forEach((error) => toast.error(error));
     }
   };
 
   return (
-    <div className=" flex justify-center items-center w-full">
+    <div className="flex justify-center items-center w-full">
       <div className="bg-accent-200 shadow-lg rounded-lg p-8 w-full max-w-2xl ">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
@@ -124,7 +123,6 @@ function CreateTicket() {
         <div className="border-t border-natural-gray2 w-full"></div>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col justify-around md:flex-row gap-4 mt-6">
-            {/* Ticket Title */}
             <div className="flex flex-col w-full">
               <label htmlFor="subject" className="text-right mb-1">
                 عنوان تیکت فارسی
@@ -144,8 +142,6 @@ function CreateTicket() {
                 </span>
               )}
             </div>
-
-            {/* Priority */}
             <div className="flex w-full flex-col">
               <Label htmlFor="priority" className="text-right mb-1">
                 اولویت
@@ -173,8 +169,6 @@ function CreateTicket() {
               )}
             </div>
           </div>
-
-          {/* Content */}
           <div className="flex flex-col mt-24">
             <Label htmlFor="content" className="text-right mb-1">
               متن
@@ -194,8 +188,6 @@ function CreateTicket() {
               </span>
             )}
           </div>
-
-          {/* File Upload Button */}
           <div className="flex gap-5 mt-6">
             <div>
               <Input
@@ -204,15 +196,8 @@ function CreateTicket() {
                 className="hidden"
                 onChange={handleFileChange}
               />
-              {/* <Button
-                type="button"
-                className="bg-natural-gray3 text-black px-4 py-2 rounded-md cursor-pointer"
-                onClick={handleFileButtonClick}
-              >
-                {file ? file.name : "انتخاب فایل"}
-              </Button> */}
+              {/* Optional file button here */}
             </div>
-
             <Button
               type="submit"
               className="bg-secondary-400 text-black px-4 py-2 rounded-md"

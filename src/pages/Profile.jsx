@@ -7,6 +7,8 @@ import CreateTicket from "./CreateTicket";
 import TicketChat from "./TicketChat";
 import Menu from "./Menu";
 import CompleteProfileModal from "@/components/CompleteProfileModal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
   const [showCompleteProfileModal, setShowCompleteProfileModal] =
@@ -28,11 +30,12 @@ function Profile() {
       if (response.ok) {
         setShowCompleteProfileModal(!res); // Show modal if profile is incomplete
       } else {
-        alert("خطایی رخ داد");
+        toast.error("خطایی رخ داد"); // Error toast for server response issues
       }
     } catch (error) {
       console.log("Failed to connect to server. Please try again.");
-      console.log(error);
+      console.error(error);
+      toast.error("خطا در اتصال به سرور. لطفاً دوباره تلاش کنید."); // Error toast for connection issues
     }
   }, []);
 
@@ -42,6 +45,7 @@ function Profile() {
 
   return (
     <div className="flex rounded-lg flex-col p-5 bg-primary-500 md:flex-row md:bg-white">
+      <ToastContainer />
       {showCompleteProfileModal && (
         <CompleteProfileModal
           showCompleteProfileModal={showCompleteProfileModal}

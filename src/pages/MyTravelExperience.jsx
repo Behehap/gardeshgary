@@ -5,7 +5,7 @@ import WriteTravelExperience from "./WriteTravelExperience";
 import CompleteProfileModal from "../components/CompleteProfileModal";
 import { useState, useCallback, useEffect } from "react";
 import EmptyPage from "./EmptyPage";
-
+import { toast } from "react-toastify";
 const MyTravelexperience = () => {
   const [showCompleteProfileModal, setShowCompleteProfileModal] =
     useState(false);
@@ -26,7 +26,7 @@ const MyTravelexperience = () => {
       if (response.ok) {
         setShowCompleteProfileModal(!res); // Show modal if profile is incomplete
       } else {
-        alert("خطایی رخ داد");
+        toast.error("خطایی رخ داد: ");
       }
     } catch (error) {
       console.log("Failed to connect to server. Please try again.");

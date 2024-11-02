@@ -3,6 +3,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { LuClock4 } from "react-icons/lu";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { toast } from "react-toastify";
 
 function Modal({ showModal, setShowModal }) {
   const [step, setStep] = useState(1); // step 1 for phone, step 2 for OTP
@@ -37,14 +38,18 @@ function Modal({ showModal, setShowModal }) {
         // Save the phone number to local storage
         localStorage.setItem("phone", phone);
         setStep(2); // Move to OTP input step
-        alert("کد تأیید ارسال شد"); // Notify the user
+        toast.success("کد تأیید ارسال شد"); // Success toast
       } else {
         // Get error message from the response
         const data = await response.json();
-        setErrorMessage(data.message || "خطایی رخ داد"); // Display the error message
+        const errorMsg = data.message || "خطایی رخ داد";
+        setErrorMessage(errorMsg); // Display the error message
+        toast.error(errorMsg); // Error toast
       }
     } catch (error) {
-      setErrorMessage("خطا در ارسال درخواست. لطفا دوباره تلاش کنید."); // Handle network errors
+      const networkErrorMsg = "خطا در ارسال درخواست. لطفا دوباره تلاش کنید.";
+      setErrorMessage(networkErrorMsg); // Handle network errors
+      toast.error(networkErrorMsg); // Error toast for network issues
     } finally {
       setIsLoading(false); // Reset loading state
     }
