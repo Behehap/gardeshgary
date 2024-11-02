@@ -154,6 +154,7 @@ const HomePage = ({ showModal, setShowModal }) => {
               {articles.map((article) => (
                 <HomeArticle
                   key={article.id}
+                  id={article.id}
                   title={article.title}
                   imageUrl={article.img}
                   content={article.content}

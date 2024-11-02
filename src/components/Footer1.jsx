@@ -25,7 +25,7 @@ const Footer = () => {
     <div>
       <footer
         dir="ltr"
-        className="flex flex-col items-center w-screen bg-teal-900 text-white py-10  md:px-4 lg:px-8"
+        className="flex flex-col items-center  bg-teal-900 text-white py-10  md:px-4 lg:px-8"
       >
         <div className="relative rounded-lg max-w-[300px] sm:max-w-[800px] mx-auto  md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1200px] container bg-gray-500">
           <img className=" opacity-40 rounded-lg" src={foter} alt="" />

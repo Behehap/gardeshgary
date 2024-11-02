@@ -181,9 +181,7 @@ function WriteTravelExperience({ initialArticleId }) {
                   ],
                   supportAllValues: true,
                 },
-                fontSize: {
-                  options: ["default", "small", "big", "large"],
-                },
+
                 textDirection: "rtl", // Sets the default text direction to RTL
                 simpleUpload: {
                   uploadUrl: articleId

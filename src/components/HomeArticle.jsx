@@ -1,24 +1,29 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "jalali-moment";
 import { FaRegClock } from "react-icons/fa6";
 import { PiCalendarDots } from "react-icons/pi";
 
-// Helper function to convert English digits to Persian digits
-const toPersianDigits = (num) => {
-  return num.replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]);
-};
+const toPersianDigits = (num) =>
+  num.replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]);
 
-const HomeArticle = ({ title, imageUrl, content, createdAt }) => {
-  // Format date and time, then convert digits to Persian
+const HomeArticle = ({ id, title, imageUrl, content, createdAt }) => {
+  const navigate = useNavigate();
   const persianDate = moment(createdAt).locale("fa").format("YYYY/MM/DD");
   const persianTime = moment(createdAt).locale("fa").format("HH:mm");
   const persianDateWithFarsiNumbers = toPersianDigits(persianDate);
   const persianTimeWithFarsiNumbers = toPersianDigits(persianTime);
 
+  const handleClick = () => {
+    navigate(`/article-page/${id}`);
+  };
+
   return (
-    <div className="flex bg-white text-white overflow-hidden border-b border-gray-300">
-      {/* Article Image with Category Badge */}
-      <div className="w-1/4 relative rounded-lg overflow-hidden m-3">
+    <div
+      onClick={handleClick}
+      className="flex bg-white text-white overflow-hidden border-b border-gray-300 cursor-pointer"
+    >
+      <div className="md:w-1/4 relative rounded-lg overflow-hidden m-3">
         <img
           src={imageUrl}
           alt={title}
@@ -28,8 +33,6 @@ const HomeArticle = ({ title, imageUrl, content, createdAt }) => {
           گردشگری
         </div>
       </div>
-
-      {/* Article Content */}
       <div className="w-3/4 p-4 flex flex-col justify-between">
         <h2 className="text-xl font-bold text-black">{title}</h2>
         <p
