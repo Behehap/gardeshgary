@@ -52,7 +52,6 @@ export default function TicketChat() {
         const ticket = await fetchTicketDetails(ticketId);
         setTicketDetails(ticket.data);
         setMessages(ticket.data.message);
-        // Set messages from ticket details
 
         console.log("Messages from API:", ticket.data.message); // Debug: Check message data
       } catch (error) {
@@ -73,7 +72,7 @@ export default function TicketChat() {
 
       try {
         const sentMessage = await sendMessage(ticketId, messageData);
-        setMessages([...messages, sentMessage]); // Append the new message to the list
+        setMessages([...messages, sentMessage]);
         setNewMessage("");
       } catch (error) {
         console.error("Error sending message:", error);
@@ -106,18 +105,18 @@ export default function TicketChat() {
   }
 
   return (
-    <div className="flex flex-col min-h-[750px] rounded-xl">
+    <div className="flex flex-col min-h-[750px] rounded-lg shadow-lg">
       {ticketDetails && (
-        <div className="flex flex-col md:flex-row bg-accent-200 justify-between text-black p-4">
+        <div className="flex flex-col md:flex-row bg-accent-200 justify-between text-black p-4 rounded-t-lg">
           <div>
             <h1 className="text-2xl font-bold pl-10">{ticketDetails.title}</h1>
           </div>
-          <ul className="flex flex-row md:flex-row font-light gap-16 px-2 text-center">
+          <ul className="flex flex-col md:flex-row font-light gap-4 md:gap-16 px-2 text-center">
             <li>وضعیت: {translateStatus(ticketDetails.status)}</li>
             <li>تاریخ ارسال: {formatDateToPersian(ticketDetails.create_at)}</li>
             <li>شماره تیکت: {ticketId}</li>
           </ul>
-          <div className="flex flex-col justify-start">
+          <div className="flex justify-center md:justify-start">
             <Button size="sm" className="text-accent-400 text-4xl">
               <Link to="/profile/tickets">
                 <IoArrowBackCircle />
@@ -131,7 +130,6 @@ export default function TicketChat() {
         <h1 className="font-semibold"> عنوان تیکت: {ticketDetails?.title}</h1>
 
         {messages.length > 0 ? (
-          (console.log(messages, "dd"),
           messages.map((message) => (
             <ChatMessage
               key={message.id}
@@ -140,7 +138,7 @@ export default function TicketChat() {
               createdAt={message.created_at}
               isSupport={message.sender_name == "admin"}
             />
-          )))
+          ))
         ) : (
           <div className="flex justify-center items-center w-full h-full">
             <h2>هیچ پیامی ارسال نشده</h2>
@@ -148,7 +146,7 @@ export default function TicketChat() {
         )}
       </div>
 
-      <div className="flex items-center p-4 bg-gray-100 gap-3">
+      <div className="flex items-center p-4 bg-gray-100 gap-3 rounded-b-lg">
         <input
           type="text"
           className="flex-1 p-2 border border-gray-300 rounded-lg"

@@ -179,31 +179,31 @@ const Navbar = ({ showModal, setShowModal }) => {
               </div>
             ))}
           </ul>
-        </div>
 
-        {/* Right side buttons */}
-        <div className="flex gap-2">
-          {isAuthenticated ? (
-            <Link
-              to="profile"
-              className="flex items-center justify-center gap-1 border-2 h-8 border-secondary-500 text-black px-3 py-4 rounded-md font-medium text-sm text-nowrap"
-            >
-              <BsFillPersonFill className="text-xl" />
-              پروفایل
-            </Link>
-          ) : (
-            <Button
-              onClick={() => setShowModal(true)}
-              className="bg-secondary-500 h-8 text-white px-3 py-4 rounded-lg font-medium border-2 border-secondary-500 text-sm text-nowrap"
-            >
-              ثبت نام
+          {/* Right side buttons */}
+          <div className="flex gap-2">
+            {isAuthenticated ? (
+              <Link
+                to="profile"
+                className="flex items-center justify-center gap-1 border-2 h-8 border-secondary-500 text-black px-3 py-4 rounded-md font-medium text-sm text-nowrap"
+              >
+                <BsFillPersonFill className="text-xl" />
+                پروفایل
+              </Link>
+            ) : (
+              <Button
+                onClick={() => setShowModal(true)}
+                className="bg-secondary-500 h-8 text-white px-3 py-4 rounded-lg font-medium border-2 border-secondary-500 text-sm text-nowrap"
+              >
+                ثبت نام
+              </Button>
+            )}
+
+            {/* New Additional Button */}
+            <Button className="bg-secondary-500 border border-secondary-500 h-8 text-white px-3 py-4 rounded-md font-medium   text-sm text-nowrap">
+              دانلود اپلیکیشن
             </Button>
-          )}
-
-          {/* New Additional Button */}
-          <Button className="bg-secondary-500 border border-secondary-500 h-8 text-white px-3 py-4 rounded-md font-medium   text-sm text-nowrap">
-            دانلود اپلیکیشن
-          </Button>
+          </div>
         </div>
       </div>
     </nav>
