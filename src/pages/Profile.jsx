@@ -9,6 +9,7 @@ import Menu from "./Menu";
 import CompleteProfileModal from "@/components/CompleteProfileModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Logout from "../components/Logout";
 
 function Profile() {
   const [showCompleteProfileModal, setShowCompleteProfileModal] =
@@ -67,6 +68,7 @@ function Profile() {
           />
           <Route path="tickets" element={<MyTickets />} />
           <Route path="/" element={<EditProfile />} />
+          <Route path="logout" element={<Logout />} />
         </Routes>
       </div>
     </div>

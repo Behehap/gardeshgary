@@ -150,7 +150,7 @@ const HomePage = ({ showModal, setShowModal }) => {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <div className="grid gap-4">
+            <div className="flex flex-col gap-4 ">
               {articles.map((article) => (
                 <HomeArticle
                   key={article.id}

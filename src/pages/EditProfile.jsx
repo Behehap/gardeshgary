@@ -100,7 +100,7 @@ function EditProfile() {
       new Promise(async (resolve, reject) => {
         try {
           const response = await fetch("http://127.0.0.1:8000/api/user/", {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

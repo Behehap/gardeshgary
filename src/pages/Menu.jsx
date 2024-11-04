@@ -25,6 +25,26 @@ function SidebarMenu({
     }
   };
 
+  useEffect(() => {
+    fetchProfile();
+  }, [checkProfileCompletion]);
+
+  const fetchProfile = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/user/", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const responseData = await response.json();
+
+      setUserData(responseData.data);
+    } catch (error) {
+      console.error("Error fetching profile data:", error);
+    }
+  };
+
   const MenuItem = ({ icon, label, to, activeColor }) => {
     const isActive = location.pathname === to;
 

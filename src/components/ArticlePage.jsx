@@ -129,7 +129,7 @@ function ArticlePage() {
                   <span
                     key={index}
                     onClick={() => handleRating(index)}
-                    className={`cursor-pointer text-8xl ${
+                    className={`cursor-pointer text-4xl lg:text-8xl ${
                       rating > index ? "text-yellow-500" : "text-gray-400"
                     }`}
                   >
