@@ -242,11 +242,11 @@ function WriteTravelExperience({ initialArticleId }) {
                   <SelectValue placeholder="دسته‌بندی را انتخاب کنید" />
                 </SelectTrigger>
                 <SelectContent className="text-start">
-                  <SelectItem value="historical">تاریخی</SelectItem>
-                  <SelectItem value="natural">طبیعی</SelectItem>
-                  <SelectItem value="cultural">فرهنگی</SelectItem>
-                  <SelectItem value="tourism">گردشگری</SelectItem>
-                  <SelectItem value="religious">مذهبی</SelectItem>
+                  <SelectItem value="1">تاریخی</SelectItem>
+                  <SelectItem value="2">طبیعی</SelectItem>
+                  <SelectItem value="3">فرهنگی</SelectItem>
+                  <SelectItem value="4">گردشگری</SelectItem>
+                  <SelectItem value="5">مذهبی</SelectItem>
                 </SelectContent>
               </Select>
             </div>
