@@ -45,7 +45,6 @@ function CreateTicket() {
     setFile(selectedFile);
   };
 
-  // Trigger file input click programmatically
   const handleFileButtonClick = () => {
     document.getElementById("fileInput").click();
   };
@@ -124,9 +123,7 @@ function CreateTicket() {
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col justify-around md:flex-row gap-4 mt-6">
             <div className="flex flex-col w-full">
-              <label htmlFor="subject" className="text-right mb-1">
-                عنوان تیکت فارسی
-              </label>
+              <label htmlFor="subject" className="text-right mb-1"></label>
               <input
                 id="subject"
                 name="subject"
@@ -196,7 +193,6 @@ function CreateTicket() {
                 className="hidden"
                 onChange={handleFileChange}
               />
-              {/* Optional file button here */}
             </div>
             <Button
               type="submit"

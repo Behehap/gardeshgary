@@ -6,14 +6,13 @@ import { Input } from "./ui/input";
 import { toast } from "react-toastify";
 
 function Modal({ showModal, setShowModal }) {
-  const [step, setStep] = useState(1); // step 1 for phone, step 2 for OTP
+  const [step, setStep] = useState(1);
   const [verificationSuccess, setVerificatoinSuccess] = useState();
   const [phone, setPhoneNumber] = useState("");
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]); // For handling 6-digit OTP input
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Retrieve the phone number from local storage when the component mounts
   useEffect(() => {
     const storedPhone = localStorage.getItem("phone");
     if (storedPhone) {
@@ -22,12 +21,11 @@ function Modal({ showModal, setShowModal }) {
   }, []);
 
   const handlePhoneSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission
-    setIsLoading(true); // Indicate loading state
-    setErrorMessage(""); // Reset any previous error messages
+    e.preventDefault();
+    setIsLoading(true);
+    setErrorMessage("");
 
     try {
-      // Send phone number to server
       const response = await fetch("http://127.0.0.1:8000/api/send-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,23 +33,21 @@ function Modal({ showModal, setShowModal }) {
       });
 
       if (response.ok) {
-        // Save the phone number to local storage
         localStorage.setItem("phone", phone);
-        setStep(2); // Move to OTP input step
-        toast.success("کد تأیید ارسال شد"); // Success toast
+        setStep(2);
+        toast.success("کد تأیید ارسال شد");
       } else {
-        // Get error message from the response
         const data = await response.json();
         const errorMsg = data.message || "خطایی رخ داد";
-        setErrorMessage(errorMsg); // Display the error message
-        toast.error(errorMsg); // Error toast
+        setErrorMessage(errorMsg);
+        toast.error(errorMsg);
       }
     } catch (error) {
       const networkErrorMsg = "خطا در ارسال درخواست. لطفا دوباره تلاش کنید.";
-      setErrorMessage(networkErrorMsg); // Handle network errors
-      toast.error(networkErrorMsg); // Error toast for network issues
+      setErrorMessage(networkErrorMsg);
+      toast.error(networkErrorMsg);
     } finally {
-      setIsLoading(false); // Reset loading state
+      setIsLoading(false);
     }
   };
 
@@ -60,11 +56,10 @@ function Modal({ showModal, setShowModal }) {
     setIsLoading(true);
     setErrorMessage("");
 
-    const code = otp.join(""); // Join the OTP array into a single string
+    const code = otp.join("");
     const storedPhone = localStorage.getItem("phone");
 
     try {
-      // ارسال شماره تلفن و کد به سرور برای تأیید
       const response = await fetch("http://127.0.0.1:8000/api/confirm-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -73,15 +68,14 @@ function Modal({ showModal, setShowModal }) {
 
       if (response.ok) {
         const res = await response.json();
-        const token = res.data.access_token; // Access the token correctly
+        const token = res.data.access_token;
 
-        // Save the token to localStorage
         localStorage.setItem("token", token);
         setShowModal(false);
 
-        setVerificatoinSuccess(true); // Set verification success state
+        setVerificatoinSuccess(true);
       } else {
-        const data = await response.json(); // Ensure we parse the response
+        const data = await response.json();
         setErrorMessage(data.message || "کد تایید اشتباه است");
       }
     } catch (error) {
@@ -109,7 +103,6 @@ function Modal({ showModal, setShowModal }) {
       newOtp[index] = value;
       setOtp(newOtp);
 
-      // Automatically move to the next input
       if (index < 5) {
         document.getElementById(`otp-${index + 1}`).focus();
       }

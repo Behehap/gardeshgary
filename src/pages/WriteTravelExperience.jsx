@@ -23,10 +23,11 @@ function WriteTravelExperience({ initialArticleId }) {
   const [articleId, setArticleId] = useState(initialArticleId || null);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
-  const [categories, setCategories] = useState([]); // Store selected categories as an array
-  const [publicationTime, setPublicationTime] = useState(""); // Store selected publication time
+  const [categories, setCategories] = useState([]);
+  const [publicationTime, setPublicationTime] = useState("");
   const [showPublishPage, setShowPublishPage] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
@@ -43,7 +44,6 @@ function WriteTravelExperience({ initialArticleId }) {
       return;
     }
 
-    // Set to next page
     setShowPublishPage(true);
   };
 
@@ -58,8 +58,8 @@ function WriteTravelExperience({ initialArticleId }) {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("img", image);
-    categories.forEach((category) => formData.append("categories[]", category)); // Send categories as array
-    formData.append("publication_time", publicationTime); // Add publication time to FormData
+    categories.forEach((category) => formData.append("categories[]", category));
+    formData.append("publication_time", publicationTime);
 
     try {
       const token = localStorage.getItem("token");
@@ -75,17 +75,17 @@ function WriteTravelExperience({ initialArticleId }) {
       if (!response.ok) {
         const errorResponse = await response.json();
         toast.error(
-          "Failed to publish the article: " + JSON.stringify(errorResponse)
+          "در انتشار مقاله مشکلی پیش آمد: " + JSON.stringify(errorResponse)
         );
         setIsPublishing(false);
         return;
       }
 
-      toast.success("Article published successfully!");
+      toast.success("!مقاله با موفقیت ارسال شد");
       setIsPublishing(false);
     } catch (error) {
-      console.error("Error publishing article:", error);
-      toast.error("Failed to publish the article.");
+      console.error(":مشکلی در انتشار مقاله پیش آمد", error);
+
       setIsPublishing(false);
     }
   };
@@ -203,13 +203,12 @@ function WriteTravelExperience({ initialArticleId }) {
         </div>
       ) : (
         <div className="flex flex-col w-full lg:w-3/4 lg:p-6">
-          {/* Second Page Content */}
           <div className="flex flex-row">
             <h1 className="text-start w-full text-primary-500 text-lg md:text-2xl lg:text-3xl mb-4 lg:mb-8">
               اطلاعات تکمیلی مقاله
             </h1>
             <Button
-              onClick={() => setShowPublishPage(false)} // Close the publish page and go back to the first page
+              onClick={() => setShowPublishPage(false)}
               size="sm"
               className="text-accent-400 text-3xl flex justify-center"
             >
@@ -217,11 +216,24 @@ function WriteTravelExperience({ initialArticleId }) {
             </Button>
           </div>
 
-          {/* Display selected categories */}
           {categories.length > 0 && (
             <div className="mb-4">
               <span className="font-bold">دسته‌بندی‌های انتخاب شده: </span>
-              <span className="text-gray-600">{categories.join(", ")}</span>
+              <span className="text-gray-600">
+                {categories
+                  .map((categoryId) => {
+                    const categoryNames = {
+                      1: "طبیعی",
+                      2: "تاریخی",
+                      3: "فرهنگی",
+                      4: "مذهبی",
+                      5: "گردشگری",
+                    };
+
+                    return categoryNames[categoryId];
+                  })
+                  .join(", ")}
+              </span>
             </div>
           )}
 
@@ -236,17 +248,36 @@ function WriteTravelExperience({ initialArticleId }) {
                       : [...prevCategories, value]
                   );
                 }}
-                multiple // Enables multi-select
+                multiple
+                value={categories}
+                open={open}
+                onOpenChange={(isOpen) => setOpen(isOpen)}
               >
                 <SelectTrigger className="bg-gray-200 border-[#7f7d7d] rounded-md w-full">
                   <SelectValue placeholder="دسته‌بندی را انتخاب کنید" />
                 </SelectTrigger>
                 <SelectContent className="text-start">
-                  <SelectItem value="1">تاریخی</SelectItem>
-                  <SelectItem value="2">طبیعی</SelectItem>
-                  <SelectItem value="3">فرهنگی</SelectItem>
-                  <SelectItem value="4">گردشگری</SelectItem>
-                  <SelectItem value="5">مذهبی</SelectItem>
+                  {[
+                    { id: "1", name: "طبیعی" },
+                    { id: "2", name: "تاریخی" },
+                    { id: "3", name: "فرهنگی" },
+                    { id: "4", name: "مذهبی" },
+                    { id: "5", name: "گردشگری" },
+                  ].map((category) => {
+                    return (
+                      <SelectItem key={category.id} value={category.id}>
+                        <div className="flex items-center">
+                          <input
+                            type="checkbox"
+                            checked={categories.includes(category.id)}
+                            readOnly
+                            className="mr-2"
+                          />
+                          {category.name}
+                        </div>
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             </div>
@@ -262,7 +293,6 @@ function WriteTravelExperience({ initialArticleId }) {
               <option value="">ساعت انتشار را انتخاب کنید</option>
               <option value="now">اکنون</option>
               <option value="scheduled">برنامه‌ریزی شده</option>
-              {/* Add more options as needed */}
             </select>
             <p className="text-xs mt-2 text-gray-600">
               میتونی همین الان مقاله ات رو منتشر کنی یا گزینه برای زمان بندی

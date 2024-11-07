@@ -9,7 +9,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       >
         Previous
       </button>
-      {/* Display current and total pages */}
+
       <span>
         {currentPage} / {totalPages}
       </span>

@@ -10,7 +10,7 @@ const TravelExperience = () => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
-  const [allTags, setAllTags] = useState([]); // Assume this will hold all available tags
+  const [allTags, setAllTags] = useState([]);
 
   const fetchArticles = async () => {
     try {
@@ -24,7 +24,7 @@ const TravelExperience = () => {
 
       const data = await response.json();
       setArticles(data);
-      setAllTags([...new Set(data.flatMap((article) => article.tags))]); // Extract unique tags
+      setAllTags([...new Set(data.flatMap((article) => article.tags))]);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -36,17 +36,14 @@ const TravelExperience = () => {
     fetchArticles();
   }, []);
 
-  // Handle tag selection
   const handleTagChange = (tag) => {
-    setSelectedTags(
-      (prevTags) =>
-        prevTags.includes(tag)
-          ? prevTags.filter((t) => t !== tag) // Unselect if already selected
-          : [...prevTags, tag] // Select if not already selected
+    setSelectedTags((prevTags) =>
+      prevTags.includes(tag)
+        ? prevTags.filter((t) => t !== tag)
+        : [...prevTags, tag]
     );
   };
 
-  // Filter articles based on searchQuery and selectedTags
   const filteredArticles = articles.filter((article) => {
     const matchesQuery = article.title
       .toLowerCase()

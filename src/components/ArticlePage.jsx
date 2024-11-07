@@ -51,7 +51,7 @@ function ArticlePage() {
   return (
     <div className="container mx-auto p-4 bg-white" dir="rtl">
       {article && (
-        <>
+        <div>
           <header className="text-start my-4 mx-4">
             <p className="text-gray-500 text-sm">{article.category}</p>
             <h1 className="text-2xl font-bold mt-2">{article.title}</h1>
@@ -169,7 +169,6 @@ function ArticlePage() {
               </button>
             </div>
 
-            {/* User Comments Section */}
             <div className="mt-8">
               <h2 className="text-lg font-semibold mb-4">نظرات کاربران</h2>
               <div className="flex justify-between text-sm text-gray-600 mb-2">
@@ -190,7 +189,7 @@ function ArticlePage() {
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

@@ -95,7 +95,6 @@ function PublishArticle() {
               )}
             </div>
 
-            {/* Category */}
             <div className="flex flex-col">
               <label htmlFor="category" className="text-right mb-1">
                 دسته‌بندی

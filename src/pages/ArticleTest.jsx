@@ -167,7 +167,6 @@ const ArticlePage = ({ initialArticleId }) => {
         </div>
       </form>
 
-      {/* Articles Display Section */}
       <div className="mt-8">
         <h2 className="text-2xl font-semibold">Articles</h2>
         {loading ? (

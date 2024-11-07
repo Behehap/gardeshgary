@@ -21,10 +21,8 @@ function EditProfile() {
   const [isChanged, setIsChanged] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
-  // Control editability of username
   const [isUserNameEditable, setIsUserNameEditable] = useState(false);
 
-  // Fetch profile data from backend
   const fetchProfile = async () => {
     try {
       const response = await fetch("http://127.0.0.1:8000/api/user/", {
@@ -57,7 +55,6 @@ function EditProfile() {
     fetchProfile();
   }, []);
 
-  // Check if inputs are changed or invalid
   const checkIfChangedAndValid = () => {
     const hasChanged =
       fullNameInput !== originalData.fullName ||
@@ -74,9 +71,7 @@ function EditProfile() {
     checkIfChangedAndValid();
   }, [fullNameInput, userNameInput, avatarInput]);
 
-  // Handle save and send updated data to backend
   const handleSave = async () => {
-    // Create a payload with only the changed fields
     const payload = {};
     if (fullNameInput !== originalData.fullName) {
       payload.name = fullNameInput;
@@ -89,13 +84,11 @@ function EditProfile() {
       payload.avatar = avatarInput;
     }
 
-    // If no fields have changed, don't make an API call
     if (Object.keys(payload).length === 0) {
       toast.info("هیچ تغییری ایجاد نشده است");
       return;
     }
 
-    // Use toast.promise to handle the promise state
     toast.promise(
       new Promise(async (resolve, reject) => {
         try {
@@ -111,7 +104,7 @@ function EditProfile() {
           if (response.ok) {
             resolve();
             setIsChanged(false);
-            fetchProfile(); // Refresh data after successful save
+            fetchProfile();
           } else {
             reject(new Error("خطایی در بروزرسانی پروفایل رخ داد"));
           }
@@ -128,7 +121,6 @@ function EditProfile() {
   };
 
   const handleCancel = () => {
-    // Reset inputs to original data
     setFullNameInput(originalData.fullName);
     setUserNameInput(originalData.userName);
     setAvatarInput(originalData.avatar || null);
@@ -141,7 +133,7 @@ function EditProfile() {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      setAvatarInput(reader.result); // Preview and update avatar
+      setAvatarInput(reader.result);
       checkIfChangedAndValid();
     };
     if (file) {
@@ -174,7 +166,6 @@ function EditProfile() {
               <AvatarFallback className="flex items-center justify-center bg-gray-300 rounded-full w-full h-full" />
             )}
 
-            {/* Button for changing avatar */}
             <Button
               onClick={() => document.getElementById("avatar-upload").click()}
               className="bg-secondary-400 rounded-full p-1 flex items-center justify-center absolute top-16 right-1"
@@ -188,7 +179,6 @@ function EditProfile() {
               <MdEdit className="text-white" size={16} />
             </Button>
 
-            {/* Hidden file input for avatar upload */}
             <input
               id="avatar-upload"
               type="file"
@@ -202,7 +192,6 @@ function EditProfile() {
           </h3>
         </div>
 
-        {/* Full Name Input */}
         <div className="flex flex-col">
           <Label className="py-2 text-white">نام و نام خانوادگی</Label>
           <Input
@@ -219,7 +208,6 @@ function EditProfile() {
           />
         </div>
 
-        {/* User Name Input */}
         <div className="flex flex-col relative">
           <Label className="py-2 text-white">نام کاربری</Label>
           <div className="relative">
@@ -245,7 +233,6 @@ function EditProfile() {
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="flex flex-row justify-between mt-6 px-8">
           <Button className="bg-natural-gray3" onClick={handleCancel}>
             انصراف

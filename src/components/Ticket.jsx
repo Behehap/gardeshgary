@@ -2,7 +2,6 @@ import React from "react";
 import { FaEye } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-// Function to format the date in Persian (YY/MM/DD)
 const formatDateToPersian = (dateString) => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat("fa-IR", {
@@ -19,7 +18,7 @@ const translateStatus = (status) => {
     case "waiting for reply":
       return "در انتظار پاسخ";
     default:
-      return status; // Keep original if not matched
+      return status;
   }
 };
 
@@ -47,7 +46,6 @@ function Ticket({ ticketId, title, date, status }) {
           <div className="flex flex-col items-center py-2 gap-8 min-w-[120px]">
             <h2 className="text-sm font-bold">مشاهده</h2>
             <button>
-              {/* Update the Link to pass the ticketId dynamically */}
               <Link to={`/profile/tickets/ticket-chat/${ticketId}`}>
                 <FaEye className="w-5 h-5" />
               </Link>

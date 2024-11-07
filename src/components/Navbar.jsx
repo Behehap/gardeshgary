@@ -19,7 +19,7 @@ const Navbar = ({ showModal, setShowModal }) => {
   // Menu items to be reused
   const menuItems = [
     { name: "مقالات گردشگری", icon: "📄", href: "#" },
-    { name: "ایران شناسی", icon: "📑", href: "#" },
+    { name: "ایران شناسی", icon: "📑", href: "/" },
     { name: "برنامه ریزی سفر", icon: "📅", href: "#" },
     {
       name: "تجربه های سفر",
