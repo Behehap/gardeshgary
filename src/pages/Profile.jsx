@@ -29,14 +29,14 @@ function Profile() {
       );
       const res = await response.json();
       if (response.ok) {
-        setShowCompleteProfileModal(!res); // Show modal if profile is incomplete
+        setShowCompleteProfileModal(!res);
       } else {
-        toast.error("خطایی رخ داد"); // Error toast for server response issues
+        toast.error("خطایی رخ داد");
       }
     } catch (error) {
       console.log("Failed to connect to server. Please try again.");
       console.error(error);
-      toast.error("خطا در اتصال به سرور. لطفاً دوباره تلاش کنید."); // Error toast for connection issues
+      toast.error("خطا در اتصال به سرور. لطفاً دوباره تلاش کنید.");
     }
   }, []);
 

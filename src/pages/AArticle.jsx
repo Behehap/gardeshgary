@@ -16,13 +16,12 @@ const AArticle = () => {
   }, []);
 
   const addProduct = async (article) => {
-    // از یک شیء استفاده کنید
     const response = await fetch("http://localhost:9000/articles", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(article), // ارسال شیء مقاله
+      body: JSON.stringify(article),
     });
 
     const responseData = await response.json();

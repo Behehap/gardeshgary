@@ -2,17 +2,15 @@ import React from "react";
 import moment from "jalali-moment";
 import { FaRegClock } from "react-icons/fa6";
 import { PiCalendarDots } from "react-icons/pi";
-// Helper function to convert English digits to Persian digits
+
 const toPersianDigits = (num) => {
   return num.replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]);
 };
 
 const ChatMessage = ({ message, isSupport, senderName, createdAt }) => {
-  // Convert createdAt to separate Persian date and time using jalali-moment
   const persianDate = moment(createdAt).locale("fa").format("YYYY/MM/DD");
   const persianTime = moment(createdAt).locale("fa").format("HH:mm");
 
-  // Apply Persian digits conversion to both date and time
   const persianDateWithFarsiNumbers = toPersianDigits(persianDate);
   const persianTimeWithFarsiNumbers = toPersianDigits(persianTime);
   console.log(isSupport);

@@ -24,7 +24,7 @@ const MyTravelexperience = () => {
       );
       const res = await response.json();
       if (response.ok) {
-        setShowCompleteProfileModal(!res); // Show modal if profile is incomplete
+        setShowCompleteProfileModal(!res);
       } else {
         toast.error("خطایی رخ داد: ");
       }

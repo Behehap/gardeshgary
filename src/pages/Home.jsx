@@ -5,14 +5,13 @@ import { Input } from "../components/ui/input";
 import { Checkbox } from "../components/ui/checkbox";
 import { Button } from "../components/ui/button";
 import { Switch } from "../components/ui/switch";
-import HomeArticle from "../components/HomeArticle"; // Import HomeArticle component
+import HomeArticle from "../components/HomeArticle";
 
 const HomePage = ({ showModal, setShowModal }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch articles on component mount
   useEffect(() => {
     const fetchArticles = async () => {
       try {
@@ -29,7 +28,7 @@ const HomePage = ({ showModal, setShowModal }) => {
         if (!response.ok) throw new Error("Failed to fetch articles");
 
         const data = await response.json();
-        setArticles(data); // Assume data is an array of articles
+        setArticles(data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -43,11 +42,7 @@ const HomePage = ({ showModal, setShowModal }) => {
   return (
     <div>
       <div className="container font-normal mx-auto flex flex-col gap-5 mt-4 md:px-4 bg-white">
-        {/* Navbar */}
-
-        {/* Hero Section */}
         <div className="flex flex-row justify-between bg-primary-500 rounded-lg mt-16 flex flex-col lg:flex-row-reverse items-center justify-center p-2 py-12">
-          {/* Right Section: Map */}
           <div className="lg:w-2/4 flex justify-center mb-10 lg:mb-0">
             <img
               src="../../public/Assets/images/MapIran.png"
@@ -56,13 +51,11 @@ const HomePage = ({ showModal, setShowModal }) => {
             />
           </div>
 
-          {/* Left Section: Filter and Search */}
           <div className="w-full lg:w-2/6 rounded-lg lg:m-5">
             <h1 className="text-2xl lg:text-3xl font-bold text-white mb-6">
               دیدنی های ایران رو کشف کن!
             </h1>
 
-            {/* Search Input */}
             <div className="mb-4">
               <Input
                 placeholder="هرجا رو میخوای جستجو کن"
@@ -73,7 +66,7 @@ const HomePage = ({ showModal, setShowModal }) => {
             <div className="p-3">
               <h1 className="text-lg text-white font-bold">فیلتر کردن مکان</h1>
             </div>
-            {/* Filter Box */}
+
             <div
               className="flex flex-col p-3 gap-3 bg-primary-700 p-1 rounded-lg md:p-6"
               dir="ltr"
@@ -82,7 +75,6 @@ const HomePage = ({ showModal, setShowModal }) => {
                 <h3 className="text-white text-md pb-3">نوع جاذبه</h3>
               </div>
 
-              {/* Filter Options */}
               <div className="grid grid-cols-3 justify-items-end  gap-3 md:gap-5 ">
                 <div className="flex items-center gap-1">
                   <Switch
@@ -122,7 +114,6 @@ const HomePage = ({ showModal, setShowModal }) => {
                 </div>
               </div>
 
-              {/* Apply Filter Button */}
               <Button
                 size="sm"
                 className="bg-secondary-400 text-black py-2 rounded-lg text-sm"
@@ -131,7 +122,6 @@ const HomePage = ({ showModal, setShowModal }) => {
               </Button>
             </div>
 
-            {/* Add Location Section */}
             <div className="text-white text-sm mt-6">
               تو هم اگر مکان خاصی رو میشناسی حتما به ما معرفی کن
             </div>
@@ -141,7 +131,6 @@ const HomePage = ({ showModal, setShowModal }) => {
           </div>
         </div>
 
-        {/* Articles Section */}
         <div className=" my-5 p-5 rounded-lg">
           <h1 className="text-xl py-5 font-semibold">مقالات جدید این ماه</h1>
 
@@ -150,17 +139,23 @@ const HomePage = ({ showModal, setShowModal }) => {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <div className="flex flex-col gap-4 ">
-              {articles.map((article) => (
-                <HomeArticle
-                  key={article.id}
-                  id={article.id}
-                  title={article.title}
-                  imageUrl={article.img}
-                  content={article.content}
-                  createdAt={article.created_at}
-                />
-              ))}
+            <div className="flex flex-col-reverse gap-4 reverse">
+              {articles.map((article) => {
+                console.log(article);
+                return (
+                  <HomeArticle
+                    key={article.id}
+                    id={article.id}
+                    title={article.title}
+                    imageUrl={article.img}
+                    content={article.content}
+                    createdAt={article.created_at}
+                    categories={(article.categories || []).map(
+                      (category) => category.name
+                    )}
+                  />
+                );
+              })}
             </div>
           )}
         </div>

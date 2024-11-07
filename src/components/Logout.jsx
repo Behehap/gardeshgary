@@ -13,15 +13,14 @@ function LogoutConfirmation() {
     toast.success("شما با موفقیت خارج شدید!");
     localStorage.clear();
     setShowPopup(false);
-    navigate("/"); // Navigate to home page
-    window.location.reload(); // Reload page to clear state
+    navigate("/");
+    window.location.reload();
   };
 
   if (!showPopup) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
-      {/* Use `top-[20%]` to move the modal higher up the screen */}
       <div className="bg-white w-[300px] p-10 rounded-lg shadow-lg text-center relative top-[-10%]">
         <div className="mb-6">
           <img src={sad} alt="Sad face" />
@@ -39,7 +38,6 @@ function LogoutConfirmation() {
             بله
           </Button>
 
-          {/* استفاده از Link برای هدایت به پروفایل */}
           <Link to="/profile" className="flex items-center w-full">
             <Button className="bg-secondary-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 w-full ">
               خیر

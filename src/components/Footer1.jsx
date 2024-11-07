@@ -14,10 +14,6 @@ import picture1 from "../../public/Logos/picture-1.png";
 import picture2 from "../../public/Logos/picture-2.png";
 import picture3 from "../../public/Logos/picture-3.png";
 
-// import picturee from "./imgfooter/labtop/picturee.png";
-// import picture11 from "./imgfooter/labtop/picture11.png";
-// import picture22 from "./imgfooter/labtop/picture22.png";
-// import picture33 from "./imgfooter/labtop/picture33.png";
 import foter from "../../public/Assets/images/photos.png";
 
 const Footer = () => {
@@ -36,7 +32,6 @@ const Footer = () => {
         <div className="block md:hidden">
           <div className="block md:hidden">
             <div className="flex   justify-around items-center mb-7">
-              {/* Social icons */}
               <div className="flex flex-col gap-1 py-5">
                 <h5 className="text-sm text-[#1BE6E3]">
                   : شبکه های اجتماعی ما{" "}
@@ -62,11 +57,8 @@ const Footer = () => {
                 />
               </div>
             </div>
-            {/* Right section (logo and description) */}
 
-            {/* Middle section (links) */}
             <div className="flex justify-center gap-5 ">
-              {/* User profile links */}
               <div className="max-w-[110px] flex flex-col items-center gap-3 text-center">
                 <h5 className="text-[#1BE6E3] font-bold text-lg">خدمات سریع</h5>
                 <ul className="tracking-tighter	 text-[12px]">
@@ -91,7 +83,6 @@ const Footer = () => {
                 </ul>
               </div>
 
-              {/* Contact links */}
               <div className="max-w-[100px]  flex flex-col items-center gap-3 text-center">
                 <h5 className="text-[#1BE6E3] font-bold text-lg">
                   ارتباط با ما
@@ -159,13 +150,10 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* for labtop  برای سایز لارج  */}
-
         <div className="hidden w-full md:flex justify-center max-w-[1200px] container p-auto md:p-10 ">
           <div className="flex">
             <div className="flex flex-col justify-around">
               <div className="flex  justify-center gap-10 xl:gap-20 text-[8px]">
-                {/* User profile links */}
                 <div className="max-w-[180px] flex flex-col items-center gap-3 text-center">
                   <h5 className="text-[#1BE6E3] font-bold text-lg">
                     خدمات سریع

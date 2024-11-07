@@ -6,19 +6,17 @@ import { CiCirclePlus } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
 function MyTickets() {
-  // State to store the tickets
   const [tickets, setTickets] = useState([]);
-  const [loading, setLoading] = useState(true); // For loading state
-  const [error, setError] = useState(null); // For error handling
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Fetch tickets from the API on component mount
   useEffect(() => {
     const fetchTickets = async () => {
       try {
         const response = await fetch("http://127.0.0.1:8000/api/user/tickets", {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Authorization header
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
@@ -27,18 +25,17 @@ function MyTickets() {
         }
 
         const data = await response.json();
-        setTickets(data.data); // Set tickets from API
+        setTickets(data.data);
       } catch (error) {
-        setError(error.message); // Handle error
+        setError(error.message);
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     };
 
     fetchTickets();
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
-  // Conditionally render based on loading or error
   if (loading) {
     return <div>Loading tickets...</div>;
   }
@@ -59,7 +56,6 @@ function MyTickets() {
             dir="ltr"
             className="flex flex-row mt-4 justify-around w-full gap-5"
           >
-            {/* Switches for filtering */}
             <div className="flex flex-row items-center gap-3">
               <Switch
                 thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4  md:translate-x-0 lg:data-[state=checked]:translate-x-8 lg:h-5 lg:w-5"
@@ -89,7 +85,6 @@ function MyTickets() {
         </Button>
       </div>
 
-      {/* Display tickets dynamically */}
       <div className="flex-1 flex-col gap-5 m-5">
         {tickets.length > 0 ? (
           tickets.map((ticket) => (

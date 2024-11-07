@@ -44,13 +44,13 @@ function CompleteProfileModal({
           body: JSON.stringify({
             name: fullName,
             username: username,
-            avatar: avatarInput, // Avatar is optional
+            avatar: avatarInput,
           }),
         }
       );
 
       if (response.ok) {
-        console.log("Toast should trigger"); // Add this line
+        console.log("Toast should trigger");
         toast.success("پروفایل با موفقیت تکمیل شد!");
         setShowCompleteProfileModal(false);
       } else {
@@ -82,9 +82,7 @@ function CompleteProfileModal({
               </button>
             </div>
 
-            {/* Content Area */}
             <div className="text-center mt-8 space-y-6">
-              {/* Icon for engagement */}
               <h2 className="text-3xl font-bold text-gray-800 mb-2">
                 تکمیل پروفایل
               </h2>
@@ -105,11 +103,8 @@ function CompleteProfileModal({
                   ادامه
                 </Button>
               </div>
-
-              {/* Decorative line */}
               <div className="border-t mt-8 w-3/4 mx-auto border-gray-300"></div>
 
-              {/* Subtle hint */}
               <p className="text-sm text-gray-500 mt-4">
                 تکمیل پروفایل تنها چند دقیقه زمان می‌برد.
               </p>
@@ -142,7 +137,6 @@ function CompleteProfileModal({
               </div>
             </div>
 
-            {/* Error Message */}
             {errorMessage && (
               <div className="text-red-500 mb-4 flex justify-center">
                 <p className="bg-red-100 p-2 rounded-md">{errorMessage}</p>
@@ -150,7 +144,6 @@ function CompleteProfileModal({
             )}
 
             <form onSubmit={handleProfileSubmit}>
-              {/* Avatar Upload */}
               <div className="flex flex-col items-center mb-8">
                 <div className="relative">
                   <div className="rounded-full w-24 h-24 overflow-hidden border border-gray-300 shadow-md hover:shadow-lg transition-shadow duration-300">
