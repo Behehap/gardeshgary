@@ -24,7 +24,7 @@ const translateStatus = (status) => {
 
 function Ticket({ ticketId, title, date, status }) {
   return (
-    <div className="bg-accent-600 rounded-lg text-white w-full">
+    <div className="bg-accent-600 rounded-lg text-white w-full ">
       <div className="w-full overflow-x-auto">
         <div className="flex flex-row justify-around min-w-[700px] px-5 py-2">
           <div className="flex flex-col items-center py-2 gap-8 min-w-[120px]">

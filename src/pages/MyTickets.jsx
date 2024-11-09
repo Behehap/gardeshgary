@@ -85,7 +85,7 @@ function MyTickets() {
         </Button>
       </div>
 
-      <div className="flex-1 flex-col gap-5 m-5">
+      <div className="flex flex-col gap-5 p-5 my-2">
         {tickets.length > 0 ? (
           tickets.map((ticket) => (
             <Ticket
