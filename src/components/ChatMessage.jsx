@@ -22,7 +22,7 @@ const ChatMessage = ({ message, isSupport, senderName, createdAt }) => {
       } mb-4`}
     >
       <div
-        className={`min-w-[250px] rounded-lg p-4 ${
+        className={`min-w-[250px] md:min-w-[300px] lg:min-w-[400px] rounded-lg p-4 ${
           isSupport ? "bg-accent-700 text-white" : "bg-accent-500 text-white"
         } max-w-lg`}
       >

@@ -104,7 +104,7 @@ export default function TicketChat() {
 
   return (
     <div className="flex justify-center  w-full ">
-      <div className="flex flex-col  min-h-[600px] w-full max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-8xl 2xl:max-w-10xl rounded-lg shadow-lg">
+      <div className="flex flex-col  min-h-[600px] w-full max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-8xl 2xl:max-w-10xl rounded-lg shadow-lg">
         {ticketDetails && (
           <div className="flex flex-col md:flex-row items-start md:items-center bg-accent-200 justify-between text-black md:p-4 rounded-t-lg">
             <div className="flex basis-3/6 md:basis-1/6  justify-between w-full items-center gap-2 py-5 ">
