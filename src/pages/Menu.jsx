@@ -90,7 +90,7 @@ function SidebarMenu({
             />
           </Avatar>
           <h3 className="text-lg font-medium text-gray-700">
-            {userData ? userData.jnkjname : "Loading..."}
+            {userData ? userData.name : "Loading..."}
           </h3>
         </div>
         <div className="flex justify-around md:flex-col md:space-y-6">
