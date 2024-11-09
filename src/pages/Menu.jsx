@@ -78,7 +78,7 @@ function SidebarMenu({
         />
       )}
       <div className="p-2 bg-white rounded-lg shadow-lg">
-        <div className="hidden md:flex flex-col items-center mt-16">
+        <div className="hidden lg:flex flex-col items-center mt-16">
           <Avatar className="mb-4">
             <AvatarImage
               src={
@@ -93,7 +93,7 @@ function SidebarMenu({
             {userData ? userData.name : "Loading..."}
           </h3>
         </div>
-        <div className="flex justify-around md:flex-col md:space-y-6">
+        <div className="flex justify-around lg:flex-col lg:space-y-6">
           <MenuItem
             icon={<IoPersonCircleOutline />}
             label="ویرایش پروفایل"

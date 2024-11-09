@@ -45,7 +45,7 @@ function MyTickets() {
   }
 
   return (
-    <div className="max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-full bg-accent-200 rounded-lg min-h-[500px]">
+    <div className=" w-full bg-accent-200 rounded-lg min-h-[500px]">
       <div className="flex flex-col border-b border-black px-4 py-5">
         <h1 className="font-bold text-xl mb-5">تیکت های من</h1>
         <div className="flex flex-col gap-3 lg:flex-row">
@@ -58,14 +58,14 @@ function MyTickets() {
           >
             <div className="flex flex-row items-center gap-3">
               <Switch
-                thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4  md:translate-x-0 lg:data-[state=checked]:translate-x-8 lg:h-5 lg:w-5"
+                thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4 md:translate-x-0 lg:data-[state=checked]:translate-x-8 lg:h-5 lg:w-5"
                 className="h-5 w-9 lg:h-6 lg:w-14"
               />
               <label className="text-black text-sm">فقط پاسخ داده شده</label>
             </div>
             <div className="flex items-center gap-3">
               <Switch
-                thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4  md:translate-x-0 lg:data-[state=checked]:translate-x-8 lg:h-5 lg:w-5"
+                thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4 md:translate-x-0 lg:data-[state=checked]:translate-x-8 lg:h-5 lg:w-5"
                 className="h-5 w-9 lg:h-6 lg:w-14"
               />
               <label className="text-black text-sm">فقط پاسخ داده نشده</label>
@@ -97,7 +97,7 @@ function MyTickets() {
             />
           ))
         ) : (
-          <div className="flex justify-center full-w">
+          <div className="flex justify-center w-full">
             <p>شما هیچ تیکتی ندارید</p>
           </div>
         )}

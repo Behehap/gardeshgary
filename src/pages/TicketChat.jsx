@@ -104,11 +104,13 @@ export default function TicketChat() {
 
   return (
     <div className="flex justify-center  w-full ">
-      <div className="flex flex-col  min-h-[600px] w-full max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-4xl 2xl:max-w-3xl rounded-lg shadow-lg">
+      <div className="flex flex-col  min-h-[600px] w-full max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-8xl 2xl:max-w-10xl rounded-lg shadow-lg">
         {ticketDetails && (
           <div className="flex flex-col md:flex-row items-start md:items-center bg-accent-200 justify-between text-black md:p-4 rounded-t-lg">
-            <div className="flex basis-3/6 md:basis-1/6  justify-between w-full items-center gap-2">
-              <h1 className="text-lg md:text-2xl font-semibold">تیکت های من</h1>
+            <div className="flex basis-3/6 md:basis-1/6  justify-between w-full items-center gap-2 py-5 ">
+              <h1 className="text-lg md:text-2xl font-semibold text-nowrap">
+                تیکت های من
+              </h1>
               <Button
                 size="sm"
                 className="text-accent-400 text-3xl md:hidden flex justify-center"
@@ -118,7 +120,7 @@ export default function TicketChat() {
                 </Link>
               </Button>
             </div>
-            <ul className="flex flex-col md:flex-row font-light text-sm md:text-base lg:text-lg gap-1 md:gap-3 mt-1 md:mt-0">
+            <ul className="flex flex-col md:flex-row font-light justify-around w-full text-sm lg:text-md gap-1 md:gap-3 mt-1 md:mt-0">
               <li>وضعیت: {translateStatus(ticketDetails.status)}</li>
               <li>
                 تاریخ ارسال: {formatDateToPersian(ticketDetails.create_at)}

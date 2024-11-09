@@ -45,7 +45,7 @@ function Profile() {
   }, [checkProfileCompletion]);
 
   return (
-    <div className="flex rounded-lg flex-col p-5 bg-primary-500 md:flex-row md:bg-white">
+    <div className="flex rounded-lg flex-col p-5 bg-primary-500 lg:flex-row lg:bg-white">
       <ToastContainer />
       {showCompleteProfileModal && (
         <CompleteProfileModal
