@@ -202,7 +202,7 @@ function WriteTravelExperience({ initialArticleId }) {
           </form>
         </div>
       ) : (
-        <div className="flex flex-col w-full lg:w-3/4 lg:p-6">
+        <div className="flex flex-col w-full lg:min-w-[1000px] lg:p-6">
           <div className="flex flex-row">
             <h1 className="text-start w-full text-primary-500 text-lg md:text-2xl lg:text-3xl mb-4 lg:mb-8">
               اطلاعات تکمیلی مقاله
@@ -241,6 +241,7 @@ function WriteTravelExperience({ initialArticleId }) {
             <label className="text-sm mb-2 font-bold">دسته بندی مقاله</label>
             <div dir="rtl">
               <Select
+                className="text-start"
                 onValueChange={(value) => {
                   setCategories((prevCategories) =>
                     prevCategories.includes(value)
@@ -253,7 +254,7 @@ function WriteTravelExperience({ initialArticleId }) {
                 open={open}
                 onOpenChange={(isOpen) => setOpen(isOpen)}
               >
-                <SelectTrigger className="bg-gray-200 border-[#7f7d7d] rounded-md w-full">
+                <SelectTrigger className="bg-gray-200 border-[#7f7d7d] rounded-md lg:max-w-lg">
                   <SelectValue placeholder="دسته‌بندی را انتخاب کنید" />
                 </SelectTrigger>
                 <SelectContent className="text-start">
@@ -266,7 +267,7 @@ function WriteTravelExperience({ initialArticleId }) {
                   ].map((category) => {
                     return (
                       <SelectItem key={category.id} value={category.id}>
-                        <div className="flex items-center">
+                        <div className="flex items-start">
                           <input
                             type="checkbox"
                             checked={categories.includes(category.id)}
@@ -286,7 +287,7 @@ function WriteTravelExperience({ initialArticleId }) {
           <div className="flex flex-col mb-6">
             <label className="text-sm mb-2 font-bold">ساعت انتشار مقاله</label>
             <select
-              className="bg-gray-200 border-[#7f7d7d] rounded-md p-2 w-full"
+              className="bg-gray-200 border-[#7f7d7d] rounded-md p-2 w-full lg:max-w-lg"
               value={publicationTime}
               onChange={(e) => setPublicationTime(e.target.value)}
             >
