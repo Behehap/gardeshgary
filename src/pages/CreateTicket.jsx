@@ -13,7 +13,7 @@ import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IoArrowBackCircle } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function CreateTicket() {
@@ -25,8 +25,8 @@ function CreateTicket() {
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  // Handle input field changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -35,7 +35,6 @@ function CreateTicket() {
     });
   };
 
-  // Handle file selection and validate size
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.size > 5 * 1024 * 1024) {
@@ -49,7 +48,6 @@ function CreateTicket() {
     document.getElementById("fileInput").click();
   };
 
-  // Function to submit the form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -82,6 +80,7 @@ function CreateTicket() {
           const res = await response.json();
           toast.success("تیکت با موفقیت ارسال شد");
           console.log("Response:", res);
+          navigate("/profile/tickets"); // Navigate after success
         } else {
           const errorData = await response.json();
           toast.error("خطایی رخ داد: " + errorData.message);
@@ -92,7 +91,6 @@ function CreateTicket() {
         setLoading(false);
       }
     } else {
-      // Display validation errors as toasts
       Object.values(validationErrors).forEach((error) => toast.error(error));
     }
   };
