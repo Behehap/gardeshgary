@@ -93,6 +93,12 @@ export default function TicketChat() {
         return "بسته شده";
       case "waiting for reply":
         return "در انتظار پاسخ";
+      case "in progress":
+        return "در حال انجام ";
+
+      case "replied":
+        return "پاسخ داده شده";
+
       default:
         return status;
     }
