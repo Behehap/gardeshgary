@@ -6,9 +6,7 @@ import { BiHeartCircle, BiBookmarks } from "react-icons/bi";
 import { LiaMedalSolid } from "react-icons/lia";
 import { useLocation, useNavigate } from "react-router-dom";
 import CompleteProfileModal from "../components/CompleteProfileModal";
-import EmptyPage from "./EmptyPage";
 
-// Loading Spinner Component
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center h-full">
     <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-600"></div>

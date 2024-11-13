@@ -16,6 +16,11 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+// Loading Spinner Component
+const LoadingSpinner = () => (
+  <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-gray-600"></div>
+);
+
 function CreateTicket() {
   const [formData, setFormData] = useState({
     subject: "",
@@ -197,7 +202,14 @@ function CreateTicket() {
               className="bg-secondary-400 text-black px-4 py-2 rounded-md"
               disabled={loading}
             >
-              {loading ? "در حال ارسال..." : "ارسال تیکت"}
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <LoadingSpinner /> {/* Display spinner while loading */}
+                  <span className="ml-2">در حال ارسال...</span>
+                </div>
+              ) : (
+                "ارسال تیکت"
+              )}
             </Button>
           </div>
         </form>
