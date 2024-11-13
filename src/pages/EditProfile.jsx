@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { MdEdit } from "react-icons/md";
 import React from "react";
 import { toast } from "react-toastify";
+import RingsLoader from "../components/Loader"; // Import the loader component
 
 function EditProfile() {
   const [fullNameInput, setFullNameInput] = useState("");
@@ -144,11 +145,19 @@ function EditProfile() {
     checkIfChangedAndValid();
   };
 
-  if (isLoading) return <div>در حال بارگذاری...</div>;
-
   return (
-    <div className="w-full max-w-sm h-auto bg-primary-500 rounded-lg lg:max-w-lg">
-      <div className="flex flex-col gap-10 md:p-8">
+    <div className="relative w-full max-w-sm h-auto bg-primary-500 rounded-lg lg:max-w-lg">
+      {/* Full-page loader overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-75 backdrop-blur-sm">
+          <RingsLoader />
+        </div>
+      )}
+
+      {/* Profile edit form */}
+      <div
+        className={`flex flex-col gap-10 md:p-8 ${isLoading ? "blur-sm" : ""}`}
+      >
         <div className="flex flex-col items-center md:mt-16">
           <Avatar className="mb-4 rounded-full w-24 h-24 relative">
             {avatarInput ? (
