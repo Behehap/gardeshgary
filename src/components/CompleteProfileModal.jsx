@@ -64,6 +64,13 @@ function CompleteProfileModal({
     }
   };
 
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <RingsLoader />
+      </div>
+    );
+
   if (!showCompleteProfileModal) return null;
 
   return (
