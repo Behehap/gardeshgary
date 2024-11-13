@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
-import { Button } from "./ui/button"; // Assuming you have a reusable Button component
-import { Input } from "./ui/input"; // Assuming you have a reusable Input component
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import { FaTriangleExclamation } from "react-icons/fa6";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Rings } from "react-loader-spinner"; // Import the loader component
+import { Rings } from "react-loader-spinner";
 
 function CompleteProfileModal({
   showCompleteProfileModal,

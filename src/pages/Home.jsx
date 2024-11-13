@@ -6,7 +6,7 @@ import { Checkbox } from "../components/ui/checkbox";
 import { Button } from "../components/ui/button";
 import { Switch } from "../components/ui/switch";
 import HomeArticle from "../components/HomeArticle";
-import RingsLoader from "../components/Loader"; // Import the loader
+import RingsLoader from "../components/Loader";
 
 const HomePage = ({ showModal, setShowModal }) => {
   const [articles, setArticles] = useState([]);
@@ -42,7 +42,6 @@ const HomePage = ({ showModal, setShowModal }) => {
 
   return (
     <div>
-      {/* Full-page loader overlay */}
       {loading && (
         <div className="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50 backdrop-blur-md">
           <RingsLoader visible={true} />

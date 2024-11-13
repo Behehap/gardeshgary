@@ -4,7 +4,7 @@ import { LuClock4 } from "react-icons/lu";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { toast } from "react-toastify";
-import { Rings } from "react-loader-spinner"; // Import the loader component
+import { Rings } from "react-loader-spinner";
 
 function Modal({ showModal, setShowModal }) {
   const [step, setStep] = useState(1);

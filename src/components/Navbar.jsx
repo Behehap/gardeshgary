@@ -31,7 +31,7 @@ const Navbar = ({ showModal, setShowModal }) => {
   ];
 
   return (
-    <nav className="md:flex md:flex-row pt-5 px-4">
+    <nav className="md:flex md:flex-row pt-5 px-4 z-50">
       <div className="hidden md:flex justify-center">
         <img src={Logo} alt="Logo" className="w-13 h-13" />
       </div>
@@ -118,7 +118,7 @@ const Navbar = ({ showModal, setShowModal }) => {
                   </Link>
                   {/* Nested dropdown menu for "Travel Experiences" */}
                   {item.hasDropdown && isDropdownOpen && (
-                    <div className="w-full bg-gray-50">
+                    <div className="w-full bg-gray-50 z-50">
                       <Link
                         to="/travel-experience"
                         className="block py-2 px-4 text-center hover:bg-gray-200"

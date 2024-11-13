@@ -1,21 +1,22 @@
-import { Rings } from "react-loader-spinner";
+import { RotatingLines } from "react-loader-spinner";
 import React from "react";
+
 const RingsLoader = ({
   visible = true,
-  height = 80,
-  width = 80,
-  color = "#4fa94d",
+  height = 160,
+  width = 160,
+  color = "#007DF0",
   ariaLabel = "rings-loading",
 }) => {
   return (
-    <div className="flex items-center justify-center">
-      <Rings
+    <div className="flex items-center justify-center" style={{ color: color }}>
+      <RotatingLines
         visible={visible}
         height={height}
         width={width}
         color={color}
         ariaLabel={ariaLabel}
-        wrapperStyle={{}}
+        wrapperStyle={{ color }}
         wrapperClass=""
       />
     </div>

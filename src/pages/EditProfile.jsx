@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { MdEdit } from "react-icons/md";
 import React from "react";
 import { toast } from "react-toastify";
-import RingsLoader from "../components/Loader"; // Import the loader component
+import RingsLoader from "../components/Loader";
 
 function EditProfile() {
   const [fullNameInput, setFullNameInput] = useState("");
