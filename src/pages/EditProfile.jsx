@@ -20,7 +20,6 @@ function EditProfile() {
   const [isLoading, setIsLoading] = useState(true);
   const [isChanged, setIsChanged] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-
   const [isUserNameEditable, setIsUserNameEditable] = useState(false);
 
   const fetchProfile = async () => {
@@ -32,18 +31,15 @@ function EditProfile() {
         },
       });
       const responseData = await response.json();
-
       const { name, username, avatar } = responseData.data;
       setFullNameInput(name || "");
       setUserNameInput(username || "");
       setAvatarInput(avatar || "");
-
       setOriginalData({
         fullName: name || "",
         userName: username || "",
         avatar: avatar || "",
       });
-
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching profile data:", error);
@@ -60,9 +56,7 @@ function EditProfile() {
       fullNameInput !== originalData.fullName ||
       userNameInput !== originalData.userName ||
       avatarInput !== originalData.avatar;
-
     const hasEmptyField = !fullNameInput.trim() || !userNameInput.trim();
-
     setIsChanged(hasChanged);
     setIsSubmitDisabled(!hasChanged || hasEmptyField);
   };
@@ -71,18 +65,20 @@ function EditProfile() {
     checkIfChangedAndValid();
   }, [fullNameInput, userNameInput, avatarInput]);
 
+  useEffect(() => {
+    const toastMessage = sessionStorage.getItem("toastMessage");
+    if (toastMessage) {
+      toast.success(toastMessage);
+      sessionStorage.removeItem("toastMessage");
+    }
+  }, []);
+
   const handleSave = async () => {
     const payload = {};
-    if (fullNameInput !== originalData.fullName) {
-      payload.name = fullNameInput;
-    }
-    if (userNameInput !== originalData.userName) {
-      payload.name = fullNameInput;
+    if (fullNameInput !== originalData.fullName) payload.name = fullNameInput;
+    if (userNameInput !== originalData.userName)
       payload.username = userNameInput;
-    }
-    if (avatarInput !== originalData.avatar) {
-      payload.avatar = avatarInput;
-    }
+    if (avatarInput !== originalData.avatar) payload.avatar = avatarInput;
 
     if (Object.keys(payload).length === 0) {
       toast.info("هیچ تغییری ایجاد نشده است");
@@ -102,9 +98,13 @@ function EditProfile() {
           });
 
           if (response.ok) {
+            sessionStorage.setItem(
+              "toastMessage",
+              "پروفایل با موفقیت بروزرسانی شد 👌"
+            );
             resolve();
             setIsChanged(false);
-            fetchProfile();
+            window.location.reload();
           } else {
             reject(new Error("خطایی در بروزرسانی پروفایل رخ داد"));
           }
@@ -136,24 +136,19 @@ function EditProfile() {
       setAvatarInput(reader.result);
       checkIfChangedAndValid();
     };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    if (file) reader.readAsDataURL(file);
   };
 
-  const handleInputChange = (setter, value, originalValue) => {
+  const handleInputChange = (setter, value) => {
     setter(value);
     checkIfChangedAndValid();
   };
 
-  if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
-  }
+  if (isLoading) return <div>در حال بارگذاری...</div>;
 
   return (
     <div className="w-full max-w-sm h-auto bg-primary-500 rounded-lg lg:max-w-lg">
       <div className="flex flex-col gap-10 md:p-8">
-        {/* Profile Section */}
         <div className="flex flex-col items-center md:mt-16">
           <Avatar className="mb-4 rounded-full w-24 h-24 relative">
             {avatarInput ? (
@@ -165,7 +160,6 @@ function EditProfile() {
             ) : (
               <AvatarFallback className="flex items-center justify-center bg-gray-300 rounded-full w-full h-full" />
             )}
-
             <Button
               onClick={() => document.getElementById("avatar-upload").click()}
               className="bg-secondary-400 rounded-full p-1 flex items-center justify-center absolute top-16 right-1"
@@ -178,7 +172,6 @@ function EditProfile() {
             >
               <MdEdit className="text-white" size={16} />
             </Button>
-
             <input
               id="avatar-upload"
               type="file"
@@ -199,11 +192,7 @@ function EditProfile() {
             className="border p-2 rounded-md text-right"
             value={fullNameInput}
             onChange={(e) =>
-              handleInputChange(
-                setFullNameInput,
-                e.target.value,
-                originalData.fullName
-              )
+              handleInputChange(setFullNameInput, e.target.value)
             }
           />
         </div>
@@ -216,11 +205,7 @@ function EditProfile() {
               className="border p-2 rounded-md text-right"
               value={userNameInput}
               onChange={(e) =>
-                handleInputChange(
-                  setUserNameInput,
-                  e.target.value,
-                  originalData.userName
-                )
+                handleInputChange(setUserNameInput, e.target.value)
               }
               disabled={!isUserNameEditable}
             />
