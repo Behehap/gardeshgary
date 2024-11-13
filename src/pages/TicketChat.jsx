@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import ChatMessage from "../components/ChatMessage";
+import RingsLoader from "../components/Loader"; // Import the loader
 
 const fetchTicketDetails = async (ticketId) => {
   const response = await fetch(
@@ -95,25 +96,30 @@ export default function TicketChat() {
         return "در انتظار پاسخ";
       case "in progress":
         return "در حال انجام ";
-
       case "replied":
         return "پاسخ داده شده";
-
       default:
         return status;
     }
   };
 
-  if (loading) {
-    return <div className="text-center">Loading...</div>;
-  }
-
   return (
-    <div className="flex justify-center  w-full ">
-      <div className="flex flex-col  min-h-[600px] w-full max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-8xl 2xl:max-w-10xl rounded-lg shadow-lg">
+    <div className="flex justify-center w-full relative">
+      {/* Full-page loader overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50 backdrop-blur-md">
+          <RingsLoader visible={true} />
+        </div>
+      )}
+
+      <div
+        className={`flex flex-col min-h-[600px] w-full max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-8xl 2xl:max-w-10xl rounded-lg shadow-lg ${
+          loading ? "blur-sm" : ""
+        }`}
+      >
         {ticketDetails && (
           <div className="flex flex-col md:flex-row items-start md:items-center bg-accent-200 justify-between text-black md:p-4 rounded-t-lg">
-            <div className="flex basis-3/6 md:basis-1/6  justify-between w-full items-center gap-2 py-5 ">
+            <div className="flex basis-3/6 md:basis-1/6 justify-between w-full items-center gap-2 py-5">
               <h1 className="text-lg md:text-2xl font-semibold text-nowrap">
                 تیکت های من
               </h1>
