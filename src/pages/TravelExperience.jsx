@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import ArticleCard from "../components/ArticleCard";
 import Pagination from "../components/Pagination";
+import RingsLoader from "../components/Loader"; // Import the loader
 import image from "../../public/Assets/images/title-pictures avatar.png";
 
 const TravelExperience = () => {
@@ -55,7 +56,14 @@ const TravelExperience = () => {
   });
 
   return (
-    <div className="max-w-screen-xl mx-auto p-4 md:p-6">
+    <div className="max-w-screen-xl mx-auto p-4 md:p-6 relative">
+      {/* Full-page loader overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50 backdrop-blur-md">
+          <RingsLoader visible={true} />
+        </div>
+      )}
+
       <img src={image} alt="Title" className="mb-4" />
       <SearchBar
         searchQuery={searchQuery}
@@ -78,7 +86,6 @@ const TravelExperience = () => {
       </div>
 
       <div className="grid grid-cols-1 py-5 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
         {!loading &&
           !error &&
