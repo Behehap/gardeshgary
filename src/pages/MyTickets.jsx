@@ -4,6 +4,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { CiCirclePlus } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import RingsLoader from "../components/Loader"; // Import the loader
 
 function MyTickets() {
   const [tickets, setTickets] = useState([]);
@@ -36,17 +37,19 @@ function MyTickets() {
     fetchTickets();
   }, []);
 
-  if (loading) {
-    return <div>Loading tickets...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
-    <div className=" w-full bg-accent-200 rounded-lg min-h-[500px]">
-      <div className="flex flex-col border-b border-black px-4 py-5">
+    <div className="w-full bg-accent-200 rounded-lg min-h-[500px] relative">
+      {loading && (
+        <div className="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50 backdrop-blur-md">
+          <RingsLoader visible={true} />
+        </div>
+      )}
+
+      <div
+        className={`flex flex-col border-b border-black px-4 py-5 ${
+          loading ? "blur-sm" : ""
+        }`}
+      >
         <h1 className="font-bold text-xl mb-5">تیکت های من</h1>
         <div className="flex flex-col gap-3 lg:flex-row">
           <p className="font-semibold text-xs">
