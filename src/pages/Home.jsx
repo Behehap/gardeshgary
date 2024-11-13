@@ -6,6 +6,7 @@ import { Checkbox } from "../components/ui/checkbox";
 import { Button } from "../components/ui/button";
 import { Switch } from "../components/ui/switch";
 import HomeArticle from "../components/HomeArticle";
+import RingsLoader from "../components/Loader"; // Import the loader
 
 const HomePage = ({ showModal, setShowModal }) => {
   const [articles, setArticles] = useState([]);
@@ -41,7 +42,18 @@ const HomePage = ({ showModal, setShowModal }) => {
 
   return (
     <div>
-      <div className="container font-normal mx-auto flex flex-col gap-5 mt-4 md:px-4 bg-white">
+      {/* Full-page loader overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50 backdrop-blur-md">
+          <RingsLoader visible={true} />
+        </div>
+      )}
+
+      <div
+        className={`container font-normal mx-auto flex flex-col gap-5 mt-4 md:px-4 bg-white ${
+          loading ? "blur-sm" : ""
+        }`}
+      >
         <div className="flex flex-row justify-between bg-primary-500 rounded-lg mt-16 flex flex-col lg:flex-row-reverse items-center justify-center p-2 py-12">
           <div className="lg:w-2/4 flex justify-center mb-10 lg:mb-0">
             <img
@@ -75,40 +87,40 @@ const HomePage = ({ showModal, setShowModal }) => {
                 <h3 className="text-white text-md pb-3">نوع جاذبه</h3>
               </div>
 
-              <div className="grid grid-cols-3 justify-items-end  gap-3 md:gap-5 ">
+              <div className="grid grid-cols-3 justify-items-end gap-3 md:gap-5">
                 <div className="flex items-center gap-1">
                   <Switch
-                    className="h-5 w-9 md:h-6 md:w-14 "
-                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4  md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
+                    className="h-5 w-9 md:h-6 md:w-14"
+                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4 md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
                   />
                   <label className="text-white text-sm">طبیعی</label>
                 </div>
                 <div className="flex items-center gap-1">
                   <Switch
-                    className="h-5 w-9 md:h-6 md:w-14 "
-                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4  md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
+                    className="h-5 w-9 md:h-6 md:w-14"
+                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4 md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
                   />
                   <label className="text-white text-sm">تاریخی</label>
                 </div>
                 <div className="flex items-center gap-1">
                   <Switch
-                    className="h-5 w-9 md:h-6 md:w-14 "
-                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4  md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
+                    className="h-5 w-9 md:h-6 md:w-14"
+                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4 md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
                   />
                   <label className="text-white text-sm">فرهنگی</label>
                 </div>
                 <div></div>
                 <div className="flex items-center gap-1">
                   <Switch
-                    className="h-5 w-9 md:h-6 md:w-14 "
-                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4  md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
+                    className="h-5 w-9 md:h-6 md:w-14"
+                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4 md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
                   />
                   <label className="text-white text-sm">مذهبی</label>
                 </div>
                 <div className="flex items-center gap-1">
                   <Switch
-                    className="h-5 w-9 md:h-6 md:w-14 "
-                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4  md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
+                    className="h-5 w-9 md:h-6 md:w-14"
+                    thumbClassName="h-4 w-4 translate-x-0 data-[state=checked]:translate-x-4 md:translate-x-0 md:data-[state=checked]:translate-x-8 md:h-5 md:w-5"
                   />
                   <label className="text-white text-sm">گردشگری</label>
                 </div>
@@ -131,7 +143,7 @@ const HomePage = ({ showModal, setShowModal }) => {
           </div>
         </div>
 
-        <div className=" my-5 p-5 rounded-lg">
+        <div className="my-5 p-5 rounded-lg">
           <h1 className="text-xl py-5 font-semibold">مقالات جدید این ماه</h1>
 
           {loading ? (
@@ -140,22 +152,19 @@ const HomePage = ({ showModal, setShowModal }) => {
             <p className="text-red-500">{error}</p>
           ) : (
             <div className="flex flex-col-reverse gap-4 reverse">
-              {articles.map((article) => {
-                console.log(article);
-                return (
-                  <HomeArticle
-                    key={article.id}
-                    id={article.id}
-                    title={article.title}
-                    imageUrl={article.img}
-                    content={article.content}
-                    createdAt={article.created_at}
-                    categories={(article.categories || []).map(
-                      (category) => category.name
-                    )}
-                  />
-                );
-              })}
+              {articles.map((article) => (
+                <HomeArticle
+                  key={article.id}
+                  id={article.id}
+                  title={article.title}
+                  imageUrl={article.img}
+                  content={article.content}
+                  createdAt={article.created_at}
+                  categories={(article.categories || []).map(
+                    (category) => category.name
+                  )}
+                />
+              ))}
             </div>
           )}
         </div>
