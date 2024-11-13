@@ -8,12 +8,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CompleteProfileModal from "../components/CompleteProfileModal";
 import EmptyPage from "./EmptyPage";
 
+// Loading Spinner Component
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center h-full">
+    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-600"></div>
+  </div>
+);
+
 function ArticleMenu({
   showCompleteProfileModal,
   setShowCompleteProfileModal,
   checkProfileCompletion,
 }) {
   const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -43,6 +51,8 @@ function ArticleMenu({
       setUserData(responseData.data);
     } catch (error) {
       console.error("Error fetching profile data:", error);
+    } finally {
+      setIsLoading(false); // Stop loading after data is fetched
     }
   };
 
@@ -80,19 +90,25 @@ function ArticleMenu({
       )}
       <div className="p-2 bg-white rounded-lg shadow-lg">
         <div className="hidden lg:flex flex-col items-center mt-16">
-          <Avatar className="mb-4">
-            <AvatarImage
-              src={
-                userData && userData.image
-                  ? userData.image
-                  : "https://via.placeholder.com/150"
-              }
-              alt="Profile"
-            />
-          </Avatar>
-          <h3 className="text-lg font-medium text-gray-700">
-            {userData ? userData.name : "Loading..."}
-          </h3>
+          {isLoading ? (
+            <LoadingSpinner /> // Display loading spinner if loading
+          ) : (
+            <>
+              <Avatar className="mb-4">
+                <AvatarImage
+                  src={
+                    userData && userData.image
+                      ? userData.image
+                      : "https://via.placeholder.com/150"
+                  }
+                  alt="Profile"
+                />
+              </Avatar>
+              <h3 className="text-lg font-medium text-gray-700">
+                {userData ? userData.name : "Loading..."}
+              </h3>
+            </>
+          )}
         </div>
         <div className="flex flex-row justify-around lg:flex-col lg:space-y-6 space-x-3 lg:space-x-0 overflow-x-auto">
           <MenuItem
@@ -130,7 +146,6 @@ function ArticleMenu({
             to="/my-travel-experience/empty-page5"
             label=" امتیازات من  "
             activeColor="text-accent-500"
-            t
           />
         </div>
       </div>
