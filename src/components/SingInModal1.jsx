@@ -4,6 +4,7 @@ import { LuClock4 } from "react-icons/lu";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { toast } from "react-toastify";
+import { Rings } from "react-loader-spinner"; // Import the loader component
 
 function Modal({ showModal, setShowModal }) {
   const [step, setStep] = useState(1);
@@ -113,14 +114,20 @@ function Modal({ showModal, setShowModal }) {
 
   return (
     <div className="fixed w-full inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
-      <div className="bg-white min-h-96  rounded-lg shadow-lg max-w-80 w-full p-6 sm:p-8 md:max-w-md lg:max-w-lg">
+      <div className="bg-white min-h-96 rounded-lg shadow-lg max-w-80 w-full p-6 sm:p-8 md:max-w-md lg:max-w-lg">
+        {isLoading && (
+          <div className="fixed inset-0 flex justify-center items-center z-50 bg-gray-900 bg-opacity-75">
+            <Rings color="#4F46E5" height={80} width={80} />
+          </div>
+        )}
+
         {verificationSuccess && (
           <div>
             <Button></Button>
           </div>
         )}
         {!verificationSuccess && (
-          <div className="flex justify-start ">
+          <div className="flex justify-start">
             <button
               onClick={() => setShowModal(false)}
               className="text-gray-400 hover:text-gray-600"
@@ -141,7 +148,7 @@ function Modal({ showModal, setShowModal }) {
               >
                 <path
                   fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586l-3.293-3.293a1 1 0 10-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                  d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586l-3.293-3.293a1 1 0 10-1.414 1.414l4 4a 1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
                   clipRule="evenodd"
                 />
               </svg>
@@ -184,7 +191,7 @@ function Modal({ showModal, setShowModal }) {
         )}
         {step === 2 && (
           <form onSubmit={handleCodeSubmit} className="space-y-4">
-            <div className="max-w-md mx-auto bg-white p-8  rounded-lg">
+            <div className="max-w-md mx-auto bg-white p-8 rounded-lg">
               <p className="text-center mb-6">
                 کد ارسال شده به شماره <strong>{phone}</strong> را وارد کنید.
               </p>
