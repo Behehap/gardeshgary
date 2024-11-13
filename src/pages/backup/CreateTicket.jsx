@@ -12,6 +12,7 @@ import {
 import { Label } from "../components/ui/label";
 import { toast, ToastContainer } from "react-toastify"; // Importing toast and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import toastify CSS
+import RingsLoader from "../components/Loader"; // Import the loader
 
 function CreateTicket() {
   const [formData, setFormData] = useState({
@@ -75,8 +76,14 @@ function CreateTicket() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center ">
+    <div className="min-h-screen flex justify-center items-center relative">
       <ToastContainer /> {/* Toast container for displaying notifications */}
+      {/* Full-page loader overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50 backdrop-blur-md">
+          <RingsLoader visible={true} />
+        </div>
+      )}
       <div className="bg-blue-200 shadow-lg rounded-lg p-8 w-full max-w-lg">
         <h2 className="text-xl font-bold p-4 text-right">ایجاد تیکت</h2>
         <p className="text-sm font-semibold text-black mb-6 text-right">
